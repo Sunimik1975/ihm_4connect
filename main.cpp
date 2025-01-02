@@ -21,6 +21,11 @@ int main(int argc, char *argv[])
         qDebug() << "Jugador registrado:" << player->getNickName();
     }
 
+    Player* player1 = game.registerPlayer("Player2", "player1@example.com", "Password123@", QDate(1990, 1, 1), 100);
+    if (player) {
+        qDebug() << "Jugador registrado:" << player1->getNickName();
+    }
+
     // Crear y mostrar la ventana de registro
     RegisterWindow *registerWindow = new RegisterWindow();
     registerWindow->show();  // Mostrar la ventana de registro

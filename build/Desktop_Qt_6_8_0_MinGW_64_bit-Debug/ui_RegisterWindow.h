@@ -40,7 +40,7 @@ public:
     QLabel *puntos;
     QSpinBox *pointsSpinBox;
     QSpacerItem *horizontalSpacer;
-    QPushButton *registerPlayerButton;
+    QPushButton *registerButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *verticalSpacer;
     QSpacerItem *horizontalSpacer_3;
@@ -113,10 +113,10 @@ public:
 
         gridLayout->addItem(horizontalSpacer, 1, 2, 1, 1);
 
-        registerPlayerButton = new QPushButton(RegisterWindow);
-        registerPlayerButton->setObjectName("registerPlayerButton");
+        registerButton = new QPushButton(RegisterWindow);
+        registerButton->setObjectName("registerButton");
 
-        gridLayout->addWidget(registerPlayerButton, 2, 3, 1, 1);
+        gridLayout->addWidget(registerButton, 2, 3, 1, 1);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -147,7 +147,7 @@ public:
         email->setText(QCoreApplication::translate("RegisterWindow", "Email", nullptr));
         fechadenacimiento->setText(QCoreApplication::translate("RegisterWindow", "Fecha de Nacimiento", nullptr));
         puntos->setText(QCoreApplication::translate("RegisterWindow", "Puntos", nullptr));
-        registerPlayerButton->setText(QCoreApplication::translate("RegisterWindow", "Listo", nullptr));
+        registerButton->setText(QCoreApplication::translate("RegisterWindow", "Listo", nullptr));
     } // retranslateUi
 
 };

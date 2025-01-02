@@ -2,7 +2,7 @@
 #include "RegisterWindow.h"
 #include "ui_RegisterWindow.h"
 #include <QMessageBox>
-#include "connect4.h"
+#include "Connect4.h"
 
 RegisterWindow::RegisterWindow(QWidget *parent) :
     QDialog(parent),  // Cambiar QWidget a QDialog
@@ -10,6 +10,7 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // El botón 'registerPlayerButton' tiene un nombre, así que Qt generará el slot 'on_registerPlayerButton_clicked'
+    connect(ui->registerButton, &QPushButton::clicked, this, &::RegisterWindow::on_registerButton_clicked);
 }
 
 RegisterWindow::~RegisterWindow() {
@@ -30,6 +31,7 @@ void RegisterWindow::on_registerButton_clicked() {
         return;
     }
 
+    qDebug() << "Datos del jugador: " << nickName << email << password << birthdate << points;
     // Emitir la señal para registrar al jugador
     emit registerPlayer(nickName, email, password, birthdate, points);
 

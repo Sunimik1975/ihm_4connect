@@ -84,7 +84,7 @@
       </spacer>
      </item>
      <item row="2" column="3">
-      <widget class="QPushButton" name="registerPlayerButton">
+      <widget class="QPushButton" name="registerButton">
        <property name="text">
         <string>Listo</string>
        </property>

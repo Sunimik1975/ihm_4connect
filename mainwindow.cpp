@@ -24,7 +24,9 @@ void MainWindow::openRegisterWindow() {
     // Conectar la señal registerPlayer a la función de registro en Connect4
     connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString &nickName, const QString &email,
                                                                        const QString &password, const QDate &birthdate, int points) {
+
         // Aquí se pasa la señal a Connect4 para el registro del jugador
+        qDebug() << "Datos del jugador pero pasando mainwindow: " << nickName << email << password << birthdate << points;
         Player* player = Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points);
 
         if (player) {
