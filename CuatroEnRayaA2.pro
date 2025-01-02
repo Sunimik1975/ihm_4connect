@@ -14,19 +14,22 @@ LIBS += -L$$PWD/lib/ -lConnect4Lib
 INCLUDEPATH += $$PWD/lib/
 
 SOURCES += \
+    RegisterWindow.cpp \
     connect4.cpp \
     gameboard.cpp \
     main.cpp \
-    regitro.cpp
+    mainwindow.cpp
 
 HEADERS += \
+    RegisterWindow.h \
     connect4.h \
     gameboard.h \
-    regitro.h
+    mainwindow.h
 
 FORMS += \
+    RegisterWindow.ui \
     gameboard.ui \
-    regitro.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
