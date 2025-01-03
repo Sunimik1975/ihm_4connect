@@ -10,7 +10,7 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // El botón 'registerPlayerButton' tiene un nombre, así que Qt generará el slot 'on_registerPlayerButton_clicked'
-    connect(ui->registerButton, &QPushButton::clicked, this, &::RegisterWindow::on_registerButton_clicked);
+    connect(ui->registerButton, &QPushButton::clicked, this, &RegisterWindow::on_registerButton_clicked);
 }
 
 RegisterWindow::~RegisterWindow() {
@@ -18,24 +18,29 @@ RegisterWindow::~RegisterWindow() {
 }
 
 // Asegúrate de que el nombre del slot coincida con la convención de Qt
-// RegisterWindow.cpp
 void RegisterWindow::on_registerButton_clicked() {
     QString nickName = ui->nicknameLineEdit->text();
     QString email = ui->emailLineEdit->text();
     QString password = ui->passwordLineEdit->text();
     QDate birthdate = ui->birthdateEdit->date();
     int points = ui->pointsSpinBox->value();
+    QImage avatar;
 
-    if (nickName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(this, "Error", "Todos los campos deben estar llenos.");
+    // Validar datos
+    if (!Connect4::getInstance().validatePlayerData(nickName, email, password, birthdate)) {
+        // Detener si los datos no son válidos
         return;
     }
+    else{
+        Connect4::getInstance().registerPlayer(nickName, email, password, birthdate,points);
+    }
 
-    qDebug() << "Datos del jugador: " << nickName << email << password << birthdate << points;
-    // Emitir la señal para registrar al jugador
-    emit registerPlayer(nickName, email, password, birthdate, points);
+    emit registerPlayer(nickName, email, password, birthdate, points, avatar);
+    //qDebug() << "Señal emitida: registerPlayer(" << nickName << ", " << email << ", " << password << ", " << birthdate << ", " << points << ")";
 
-    // Cerrar la ventana de registro
     close();
 }
+
+
+
 

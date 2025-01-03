@@ -20,11 +20,15 @@ public:
     ~RegisterWindow();
 
 signals:
-    void registerPlayer(const QString& nickName, const QString& email,
-                        const QString& password, const QDate& birthdate, int points);
+signals:
+    void registerPlayer(const QString& nickName, const QString& email, const QString& password,
+                        const QDate& birthdate, int points, const QImage& avatar);
+
+
 
 private slots:
     void on_registerButton_clicked();
+
 
 private:
     Ui::RegisterWindow *ui;

@@ -1,13 +1,17 @@
-
 #include "Connect4.h"
 #include "Connect4DAO.h"
 #include <QFile>
 #include <QDebug>
 #include <QRegularExpression>
+#include <QMessageBox>
 
 
 Connect4::Connect4() {}
 Connect4::~Connect4() {}
+
+
+
+
 
 Connect4& Connect4::getInstance() {
     static Connect4 instance;
@@ -39,17 +43,21 @@ void Connect4::initializeDatabase() {
 Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
                                  const QString& password, const QDate& birthdate, int points,
                                  const QImage& avatar) {
+    qDebug() << "Intentando registrar jugador:" << nickName << email << password << birthdate << points;
+
     if (!validatePlayerData(nickName, email, password, birthdate)) {
-        qDebug() << "Datos del jugador no válidos.";
+        qDebug() << "Error: Validación fallida para el jugador.";
         return nullptr;
     }
 
     QImage finalAvatar = avatar.isNull() ? QImage(":/images/default.png") : avatar;
     Player* player = new Player(nickName, email, password, birthdate, points, finalAvatar);
+
     if (Connect4DAO::getInstance().addPlayer(*player)) {
+        qDebug() << "Jugador registrado exitosamente en la base de datos.";
         return player;
-    }
-    else {
+    } else {
+        qCritical() << "Error al agregar el jugador a la base de datos.";
         delete player;
         return nullptr;
     }
@@ -57,29 +65,34 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
 
 
 
+
+
 bool Connect4::validatePlayerData(const QString& nickName, const QString& email,
                                   const QString& password, const QDate& birthdate) {
+    QStringList errors;
+
     QRegularExpression nicknameRegex("^[a-zA-Z0-9_-]{6,15}$");
     if (!nicknameRegex.match(nickName).hasMatch()) {
-        qDebug() << "El nickname no cumple con los requisitos.";
-        return false;
+        errors << "El nickname debe tener entre 6 y 15 caracteres y solo puede contener letras, números, guiones o guiones bajos.";
     }
 
     QRegularExpression emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
     if (!emailRegex.match(email).hasMatch()) {
-        qDebug() << "El correo electrónico no tiene un formato válido.";
-        return false;
+        errors << "El correo electrónico no tiene un formato válido.";
     }
 
     QRegularExpression passwordRegex(R"((?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%&*()-+=]).{8,20})");
     if (!passwordRegex.match(password).hasMatch()) {
-        qDebug() << "La contraseña no cumple con los requisitos de seguridad.";
-        return false;
+        errors << "La contraseña debe tener entre 8 y 20 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo especial.";
     }
 
     QDate currentDate = QDate::currentDate();
     if (birthdate.addYears(12) > currentDate) {
-        qDebug() << "El jugador debe tener al menos 12 años.";
+        errors << "El jugador debe tener al menos 12 años.";
+    }
+
+    if (!errors.isEmpty()) {
+        QMessageBox::warning(nullptr, "Error en validación", errors.join("\n"));
         return false;
     }
 
@@ -88,8 +101,28 @@ bool Connect4::validatePlayerData(const QString& nickName, const QString& email,
 
 
 
+
 Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
                                  const QString& password, const QDate& birthdate, int points) {
+
+    qDebug() << "Intentando registrar jugador:" << nickName << email << password << birthdate << points;
+
+    if (!validatePlayerData(nickName, email, password, birthdate)) {
+        qDebug() << "Error: Validación fallida para el jugador.";
+        return nullptr;
+    }
+
+    Player* player = new Player(nickName, email, password, birthdate, points);
+
+    if (Connect4DAO::getInstance().addPlayer(*player)) {
+        qDebug() << "Jugador registrado exitosamente en la base de datos.";
+        return player;
+    } else {
+        qCritical() << "Error al agregar el jugador a la base de datos.";
+        delete player;
+        return nullptr;
+    }
+
     return registerPlayer(nickName, email, password, birthdate, points, QImage());
 }
 
