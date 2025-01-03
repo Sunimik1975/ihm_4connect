@@ -1,5 +1,6 @@
 // MainWindow.cpp
 #include "mainwindow.h"
+#include "gameboard.h"
 #include "ui_mainwindow.h"
 #include "RegisterWindow.h"
 #include "Connect4.h"  // Asegúrate de incluir la clase Connect4
@@ -9,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    qDebug() << "entra a la funcion on mainwindow.";
+    //qDebug() << "entra a la funcion on mainwindow.";
     // Conectar el botón "Registrar jugador" a la función para abrir RegisterWindow
     // Conectar el botón de la interfaz al slot openRegisterWindow()
     connect(ui->registerButtonM, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
@@ -28,7 +29,7 @@ void MainWindow::openRegisterWindow() {
     bool connected = connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString& nickName, const QString& email,
                                                                        const QString& password, const QDate& birthdate,
                                                                        int points, const QImage& avatar) {
-        qDebug() << "Conexión recibida en MainWindow";
+        //qDebug() << "Conexión recibida en MainWindow";
 
         // Llama a la función Connect4::registerPlayer
         Player* player = Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points);
@@ -56,8 +57,24 @@ void MainWindow::login() {
     // Validar datos
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
         // Detener si los datos no son válidos
-        qDebug() << "usuario valido.";
-        return;
+        //qDebug() << "usuario valido.";
+        QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
+
+        // Agregar el jugador a la lista de jugadores activos
+        activePlayers.append(nickName);
+
+        if (activePlayers.size() >= 2) {
+            QString player1 = activePlayers.at(0);
+            QString player2 = activePlayers.at(1);
+
+            // Crear y mostrar la ventana del tablero de juego
+            GameBoard* gameBoard = new GameBoard(player1, player2);
+            gameBoard->show();
+
+            // Cerrar la ventana principal
+            this->close();
+        }
+
     }
 
 

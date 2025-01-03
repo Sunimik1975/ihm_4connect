@@ -6,12 +6,14 @@
 #include <QtMath>
 #include <QMessageBox>
 
-GameBoard::GameBoard(QWidget *parent)
+GameBoard::GameBoard(const QString& player1, const QString& player2,QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::GameBoard)
     , rows(6)
     , cols(7)
     , currentPlayer(1)
+    , player1Name(player1)
+    , player2Name(player2)
 {
     ui->setupUi(this);
     grid.resize(rows, QVector<int>(cols, 0));
@@ -85,13 +87,16 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
                 // Verificar si el movimiento actual gana el juego
                 if(checkWin(row, column)){
 
-                    QMessageBox::information(this, "Victoria", QString("¡Jugador %1 ha ganado!").arg(currentPlayer));
+                    QString winnerName = (currentPlayer == 1) ? player1Name : player2Name;
+                    QMessageBox::information(this, "Victoria", QString("¡Jugador %1 ha ganado!").arg(winnerName));
 
                     return;
                 }
 
                 // Cambiar de jugador
                 currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                QString nextPlayerName = (currentPlayer == 1) ? player1Name : player2Name;
+                qDebug() << "Turno de" << nextPlayerName;
 
             }
             else{

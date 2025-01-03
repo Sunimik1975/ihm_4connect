@@ -13,7 +13,7 @@ class GameBoard : public QWidget
     Q_OBJECT
 
 public:
-    explicit GameBoard(QWidget *parent = nullptr);
+    explicit GameBoard(const QString &player1, const QString &player2, QWidget *parent = nullptr);
     ~GameBoard();
 
 protected:
@@ -28,6 +28,9 @@ private:
     int currentPlayer;
 
     QVector<QVector<int>> grid;
+
+    QString player1Name;
+    QString player2Name;
 
     bool dropDisc(int column, int &row);
     bool checkWin(int row, int col);

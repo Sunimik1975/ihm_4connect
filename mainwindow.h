@@ -21,6 +21,7 @@ private slots:
     void login();
 private:
     Ui::MainWindow *ui;
+    QList<QString> activePlayers;  // Lista de jugadores activos
 };
 
 #endif // MAINWINDOW_H
