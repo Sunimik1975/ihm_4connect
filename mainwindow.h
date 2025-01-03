@@ -18,7 +18,7 @@ public:
 
 private slots:
     void openRegisterWindow(); // Slot para abrir la ventana de registro
-
+    void login();
 private:
     Ui::MainWindow *ui;
 };

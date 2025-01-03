@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Conectar el botón "Registrar jugador" a la función para abrir RegisterWindow
     // Conectar el botón de la interfaz al slot openRegisterWindow()
     connect(ui->registerButtonM, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
+    connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::login);
 }
 
 MainWindow::~MainWindow() {
@@ -46,6 +47,20 @@ void MainWindow::openRegisterWindow() {
     // Mostrar la ventana de registro
     registerWindow->show();
     //registerWindow->deleteLater();
+}
+
+void MainWindow::login() {
+
+    QString nickName = ui->nicknameLineEditM->text();
+    QString passwordM = ui->passwordLineEditM->text();
+    // Validar datos
+    if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
+        // Detener si los datos no son válidos
+        qDebug() << "usuario valido.";
+        return;
+    }
+
+
 }
 
 
