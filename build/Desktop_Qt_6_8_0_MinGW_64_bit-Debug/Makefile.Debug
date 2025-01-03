@@ -19,7 +19,7 @@ CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -Wextra -Wextra
 INCPATH       = -I../../../CuatroEnRayaA2 -I. -I../../lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -Idebug -I. -I/include -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -LD:\Islam\IHM\CuatroEnRayaA2\CuatroEnRayaA2\lib -lConnect4Lib C:\Qt\6.8.0\mingw_64\lib\libQt6Widgets.a C:\Qt\6.8.0\mingw_64\lib\libQt6Gui.a C:\Qt\6.8.0\mingw_64\lib\libQt6Core.a -lmingw32 C:\Qt\6.8.0\mingw_64\lib\libQt6EntryPoint.a -lshell32  
+LIBS        =        -LC:\Users\tomak\OneDrive\Documentos\IHM\!TREBALL2\4connect_iniciarsesion\CuatroEnRayaA2\CuatroEnRayaA2\lib -lConnect4Lib C:\Qt\6.8.0\mingw_64\lib\libQt6Widgets.a C:\Qt\6.8.0\mingw_64\lib\libQt6Gui.a C:\Qt\6.8.0\mingw_64\lib\libQt6Core.a -lmingw32 C:\Qt\6.8.0\mingw_64\lib\libQt6EntryPoint.a -lshell32  
 QMAKE         = C:\Qt\6.8.0\mingw_64\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -322,7 +322,7 @@ debug/moc_RegisterWindow.cpp: ../../RegisterWindow.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/qdialog.h \
 		debug/moc_predefs.h \
 		C:/Qt/6.8.0/mingw_64/bin/moc.exe
-	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include D:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2 -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\RegisterWindow.h -o debug\moc_RegisterWindow.cpp
+	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2 -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\RegisterWindow.h -o debug\moc_RegisterWindow.cpp
 
 debug/moc_gameboard.cpp: ../../gameboard.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
@@ -519,7 +519,7 @@ debug/moc_gameboard.cpp: ../../gameboard.h \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/qbasictimer.h \
 		debug/moc_predefs.h \
 		C:/Qt/6.8.0/mingw_64/bin/moc.exe
-	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include D:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2 -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\gameboard.h -o debug\moc_gameboard.cpp
+	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2 -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\gameboard.h -o debug\moc_gameboard.cpp
 
 debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow \
@@ -715,7 +715,7 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/6.8.0/mingw_64/bin/moc.exe
-	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include D:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2 -ID:/Islam/IHM/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2 -IC:/Users/tomak/OneDrive/Documentos/IHM/!TREBALL2/4connect_iniciarsesion/CuatroEnRayaA2/CuatroEnRayaA2/lib -IC:/Qt/6.8.0/mingw_64/include -IC:/Qt/6.8.0/mingw_64/include/QtWidgets -IC:/Qt/6.8.0/mingw_64/include/QtGui -IC:/Qt/6.8.0/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IC:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IC:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1792,13 +1792,17 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabwidget.h \
+<<<<<<< HEAD
 		../../gameboard.h \
 		C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/qbasictimer.h \
+=======
+>>>>>>> 3555011f08e3e22df8b5db64ecb8385aedb16479
 		ui_mainwindow.h \
 		../../RegisterWindow.h \
+		C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/QString \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/QDate \
 		C:/Qt/6.8.0/mingw_64/include/QtCore/qdatetime.h \

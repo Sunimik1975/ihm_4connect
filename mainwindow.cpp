@@ -58,6 +58,7 @@ void MainWindow::login() {
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
         // Detener si los datos no son válidos
         //qDebug() << "usuario valido.";
+<<<<<<< HEAD
         QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
 
         // Agregar el jugador a la lista de jugadores activos
@@ -75,6 +76,9 @@ void MainWindow::login() {
             this->close();
         }
 
+=======
+        return;
+>>>>>>> 3555011f08e3e22df8b5db64ecb8385aedb16479
     }
 
 
