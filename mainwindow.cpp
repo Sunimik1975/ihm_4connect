@@ -56,7 +56,7 @@ void MainWindow::login() {
     // Validar datos
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
         // Detener si los datos no son válidos
-        qDebug() << "usuario valido.";
+        //qDebug() << "usuario valido.";
         return;
     }
 
