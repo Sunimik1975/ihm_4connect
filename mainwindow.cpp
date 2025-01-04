@@ -55,50 +55,58 @@ void MainWindow::setJugadorConectado(const QString& jugador) {
     qDebug() << "Jugador que sigue conectado:" << jugadorConectado;
 
 }
+
+
+// Método para cambiar el modo de juego (multiplayer o singleplayer)
+void MainWindow::setIsMultiplayer(bool multiplayer) {
+    this->isMultiplayer = multiplayer;
+}
+
+// MainWindow.cpp
+
 void MainWindow::login() {
     QString nickName = ui->nicknameLineEditM->text();
     QString passwordM = ui->passwordLineEditM->text();
 
-    qDebug() << "Tamaño de activePlayers antes del if:" << activePlayers.size();
-    qDebug() << "Contenido de activePlayers:" << activePlayers;
-    qDebug() << "Contenido de activePlayers:" << jugadorConectado;
-    // Validar datos
+    // Validar los datos del jugador
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
         QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
 
-        // Comprobar si hay un jugador conectado
-        if (activePlayers.size() == 1) {
-            qDebug() << "Entrano al primewr if, es decir si hay un jugador activo" ;
-            // Si ya hay un jugador conectado, solo se agrega el nuevo jugador
-            QString jugadorExistente = activePlayers.at(0);
-            activePlayers.clear();
-            activePlayers.append(jugadorExistente);
+        if (isMultiplayer) {
+            // Verificar si ya hay 2 jugadores
+            if (activePlayers.contains(nickName)) {
+                QMessageBox::information(this, "Aviso", "Ya has iniciado sesión.");
+                return;
+            }
+
             activePlayers.append(nickName);
+
+            if (activePlayers.size() == 2) {
+                QString player1 = activePlayers.at(0);
+                QString player2 = activePlayers.at(1);
+                qDebug() << "hay dos jugadores";
+                // Abrir el tablero de juego para dos jugadores
+                GameBoard* gameBoard = new GameBoard(player1, player2);
+                gameBoard->show();
+
+                this->close(); // Cerrar la ventana principal
+            } else {
+                QMessageBox::information(this, "Esperando jugador", "Esperando que otro jugador inicie sesión.");
+            }
         } else {
-            qDebug() << "Entrano al primewr if, es decir NO hay un jugador activo" ;
-            // Si no hay jugadores conectados, agregar ambos jugadores
-
-            activePlayers.append(nickName);
-            qDebug() << "Contenido de activePlayers:" << activePlayers;
-        }
-
-        // Crear y mostrar la ventana del tablero de juego
-        if (activePlayers.size() == 2) {
-            qDebug() << "Entra directame" ;
-            QString player1 = activePlayers.at(0);
-            QString player2 = activePlayers.at(1);
-            qDebug() << "Contenido de activePlayers:" << activePlayers;
-
-            GameBoard* gameBoard = new GameBoard(player1, player2);
+            // Lógica para el modo singleplayer
+            GameBoard* gameBoard = new GameBoard(nickName, "Maquina");
             gameBoard->show();
 
-            // Cerrar la ventana principal
             this->close();
         }
-
-        return;
+    } else {
+        QMessageBox::warning(this, "Error", "El nombre de usuario o la contraseña son incorrectos.");
     }
 }
+
+
+
 
 
 

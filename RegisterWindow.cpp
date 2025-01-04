@@ -54,7 +54,7 @@ void RegisterWindow::on_registerButton_clicked() {
     emit registerPlayer(nickName, email, password, birthdate, points, avatar);
     //qDebug() << "Señal emitida: registerPlayer(" << nickName << ", " << email << ", " << password << ", " << birthdate << ", " << points << ")";
 
-    close();
+    this->hide();
 }
 
 
