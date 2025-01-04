@@ -15,13 +15,17 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void setJugadorConectado(const QString& jugador);
+    QString jugadorConectado;      // Jugador que sigue conectado
 
 private slots:
     void openRegisterWindow(); // Slot para abrir la ventana de registro
     void login();
+
 private:
     Ui::MainWindow *ui;
     QList<QString> activePlayers;  // Lista de jugadores activos
+    //QString jugadorConectado;      // Jugador que sigue conectado
 };
 
 #endif // MAINWINDOW_H

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>314</height>
+    <height>336</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,6 +67,20 @@
        </item>
        <item>
         <widget class="QSpinBox" name="pointsSpinBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="avatarLabel">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="avatarButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

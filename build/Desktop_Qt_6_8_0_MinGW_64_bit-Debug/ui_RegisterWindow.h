@@ -39,6 +39,8 @@ public:
     QDateEdit *birthdateEdit;
     QLabel *puntos;
     QSpinBox *pointsSpinBox;
+    QLabel *avatarLabel;
+    QPushButton *avatarButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *registerButton;
     QSpacerItem *verticalSpacer_2;
@@ -49,7 +51,7 @@ public:
     {
         if (RegisterWindow->objectName().isEmpty())
             RegisterWindow->setObjectName("RegisterWindow");
-        RegisterWindow->resize(400, 314);
+        RegisterWindow->resize(400, 336);
         verticalLayout_2 = new QVBoxLayout(RegisterWindow);
         verticalLayout_2->setObjectName("verticalLayout_2");
         gridLayout = new QGridLayout();
@@ -106,6 +108,16 @@ public:
 
         verticalLayout->addWidget(pointsSpinBox);
 
+        avatarLabel = new QLabel(RegisterWindow);
+        avatarLabel->setObjectName("avatarLabel");
+
+        verticalLayout->addWidget(avatarLabel);
+
+        avatarButton = new QPushButton(RegisterWindow);
+        avatarButton->setObjectName("avatarButton");
+
+        verticalLayout->addWidget(avatarButton);
+
 
         gridLayout->addLayout(verticalLayout, 1, 1, 1, 1);
 
@@ -147,6 +159,8 @@ public:
         email->setText(QCoreApplication::translate("RegisterWindow", "Email", nullptr));
         fechadenacimiento->setText(QCoreApplication::translate("RegisterWindow", "Fecha de Nacimiento", nullptr));
         puntos->setText(QCoreApplication::translate("RegisterWindow", "Puntos", nullptr));
+        avatarLabel->setText(QCoreApplication::translate("RegisterWindow", "TextLabel", nullptr));
+        avatarButton->setText(QCoreApplication::translate("RegisterWindow", "PushButton", nullptr));
         registerButton->setText(QCoreApplication::translate("RegisterWindow", "Listo", nullptr));
     } // retranslateUi
 

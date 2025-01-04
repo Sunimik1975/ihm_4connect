@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -18,12 +19,16 @@ QT_BEGIN_NAMESPACE
 class Ui_GameBoard
 {
 public:
+    QPushButton *cerrarSesionButton;
 
     void setupUi(QWidget *GameBoard)
     {
         if (GameBoard->objectName().isEmpty())
             GameBoard->setObjectName("GameBoard");
         GameBoard->resize(400, 300);
+        cerrarSesionButton = new QPushButton(GameBoard);
+        cerrarSesionButton->setObjectName("cerrarSesionButton");
+        cerrarSesionButton->setGeometry(QRect(150, 270, 80, 24));
 
         retranslateUi(GameBoard);
 
@@ -33,6 +38,7 @@ public:
     void retranslateUi(QWidget *GameBoard)
     {
         GameBoard->setWindowTitle(QCoreApplication::translate("GameBoard", "Form", nullptr));
+        cerrarSesionButton->setText(QCoreApplication::translate("GameBoard", "PushButton", nullptr));
     } // retranslateUi
 
 };

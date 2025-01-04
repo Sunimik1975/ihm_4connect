@@ -14,11 +14,15 @@ class GameBoard : public QWidget
 
 public:
     explicit GameBoard(const QString &player1, const QString &player2, QWidget *parent = nullptr);
+
     ~GameBoard();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+
+private slots:
+    void on_cerrarSesionButton_clicked();
 
 private:
     Ui::GameBoard *ui;
@@ -32,9 +36,10 @@ private:
     QString player1Name;
     QString player2Name;
 
+    void cerrarSesion();
     bool dropDisc(int column, int &row);
     bool checkWin(int row, int col);
-
+    void actualizarJugadores(const QString& jugador1, const QString& jugador2);
     // Variables para la animación
     bool isAnimating;
     int animColumn;

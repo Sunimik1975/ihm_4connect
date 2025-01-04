@@ -1,11 +1,14 @@
 #include "gameboard.h"
+#include "mainwindow.h"
 #include "ui_gameboard.h"
+#include "connect4.h"
 
 #include <QMouseEvent>
 #include <QPainter>
 #include <QtMath>
 #include <QMessageBox>
-
+#include <QInputDialog>
+#include <QVBoxLayout>
 GameBoard::GameBoard(const QString& player1, const QString& player2,QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::GameBoard)
@@ -18,11 +21,86 @@ GameBoard::GameBoard(const QString& player1, const QString& player2,QWidget *par
     ui->setupUi(this);
     grid.resize(rows, QVector<int>(cols, 0));
     setMinimumSize(cols * 40, rows * 40);
+
+    // Crear el botón "Cerrar sesión"
+    QPushButton* cerrarSesionButton = new QPushButton("Cerrar sesión", this);
+    cerrarSesionButton->setFixedSize(120, 40);
+
+    // Aplicar estilo al botón
+    cerrarSesionButton->setStyleSheet(
+        "background-color: #FF6347; color: white; border-radius: 10px; font-size: 16px;"
+        );
+
+    // Crear un layout vertical para colocar el botón en la parte inferior
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->addStretch();
+    layout->addWidget(cerrarSesionButton, 0, Qt::AlignCenter);
+
+    // Conectar el botón a la función on_cerrarSesionButton_clicked()
+    connect(cerrarSesionButton, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
 }
 
 GameBoard::~GameBoard()
 {
     delete ui;
+}
+
+
+void GameBoard::on_cerrarSesionButton_clicked() {
+    // Preguntar qué jugador desea cerrar sesión
+    QStringList opciones = { player1Name, player2Name };
+    QString jugadorADesconectar = QInputDialog::getItem(this, "Cerrar sesión", "Selecciona el jugador que desea desconectarse:", opciones, 0, false);
+
+    if (jugadorADesconectar.isEmpty()) {
+        qDebug() << "No se ha seleccionado ningún jugador para desconectar.";
+        return;
+    }
+
+    // Mostrar en la terminal que el jugador ha sido desconectado
+    qDebug() << jugadorADesconectar << "ha sido desconectado.";
+    // Determinar quién sigue conectado
+    QString jugadorConectado = (jugadorADesconectar == player1Name) ? player2Name : player1Name;
+
+    // Cerrar la ventana actual y abrir MainWindow
+    MainWindow* mainWindow = new MainWindow();
+    mainWindow->setJugadorConectado(jugadorConectado);  // Paso del jugador que sigue conectado
+    mainWindow->show();
+
+    //Cerrar la ventana de GameBoard
+    this->close();
+
+    // Solicitar el nombre del nuevo jugador
+    //QString nuevoJugador = QInputDialog::getText(this, "Nuevo Jugador", "Introduce el nombre del nuevo jugador:");
+/*
+    if (!nuevoJugador.isEmpty()) {
+        if(Connect4::getInstance().getPlayer(nuevoJugador)){
+            if (jugadorADesconectar == player1Name) {
+                player1Name = nuevoJugador;
+            } else {
+                player2Name = nuevoJugador;
+            }
+
+            // Mostrar en la terminal que el nuevo jugador se ha conectado
+            qDebug() << nuevoJugador << "se ha conectado.";
+
+            // Actualizar el tablero
+            update();
+        }
+        else {
+            qDebug() << "No existe ese jugador.";
+        }
+    } else {
+        qDebug() << "No se ha conectado ningún nuevo jugador.";
+    }*/
+
+}
+
+
+void GameBoard::actualizarJugadores(const QString& jugador1, const QString& jugador2) {
+    player1Name = jugador1;
+    player2Name = jugador2;
+
+    qDebug() << "Jugadores actualizados: " << player1Name << " y " << player2Name;
 }
 
 void GameBoard::paintEvent(QPaintEvent *event)

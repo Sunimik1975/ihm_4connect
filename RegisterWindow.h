@@ -28,10 +28,12 @@ signals:
 
 private slots:
     void on_registerButton_clicked();
+    void on_selectAvatarButton_clicked();
 
 
 private:
     Ui::RegisterWindow *ui;
+    QImage selectedAvatar;
 };
 
 #endif // REGISTERWINDOW_H
