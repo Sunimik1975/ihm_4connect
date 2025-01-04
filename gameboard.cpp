@@ -1,4 +1,5 @@
 #include "gameboard.h"
+#include "build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/ui_gameboard.h"
 #include "mainwindow.h"
 #include "ui_gameboard.h"
 #include "connect4.h"
@@ -22,22 +23,12 @@ GameBoard::GameBoard(const QString& player1, const QString& player2,QWidget *par
     grid.resize(rows, QVector<int>(cols, 0));
     setMinimumSize(cols * 40, rows * 40);
 
-    // Crear el botón "Cerrar sesión"
-    QPushButton* cerrarSesionButton = new QPushButton("Cerrar sesión", this);
-    cerrarSesionButton->setFixedSize(120, 40);
 
-    // Aplicar estilo al botón
-    cerrarSesionButton->setStyleSheet(
-        "background-color: #FF6347; color: white; border-radius: 10px; font-size: 16px;"
-        );
-
-    // Crear un layout vertical para colocar el botón en la parte inferior
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addStretch();
-    layout->addWidget(cerrarSesionButton, 0, Qt::AlignCenter);
 
     // Conectar el botón a la función on_cerrarSesionButton_clicked()
-    connect(cerrarSesionButton, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
+    connect(ui->cerrarPushButton, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
+    connect(ui->cerrarPushButton2, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
+
 }
 
 GameBoard::~GameBoard()
@@ -47,26 +38,39 @@ GameBoard::~GameBoard()
 
 
 void GameBoard::on_cerrarSesionButton_clicked() {
-    // Preguntar qué jugador desea cerrar sesión
-    QStringList opciones = { player1Name, player2Name };
-    QString jugadorADesconectar = QInputDialog::getItem(this, "Cerrar sesión", "Selecciona el jugador que desea desconectarse:", opciones, 0, false);
 
-    if (jugadorADesconectar.isEmpty()) {
-        qDebug() << "No se ha seleccionado ningún jugador para desconectar.";
+    // Identificar qué botón fue presionado
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+
+    QString jugadorADesconectar;
+
+    if (button == ui->cerrarPushButton) {
+        jugadorADesconectar = player1Name;
+        qDebug() << "Cerrar Sesión - Botón 1 presionado. Desconectando:" << player1Name;
+    } else if (button == ui->cerrarPushButton2) {
+        jugadorADesconectar = player2Name;
+        qDebug() << "Cerrar Sesión - Botón 2 presionado. Desconectando:" << player2Name;
+    } else {
+        qDebug() << "Error: Botón desconocido.";
         return;
     }
 
     // Mostrar en la terminal que el jugador ha sido desconectado
     qDebug() << jugadorADesconectar << "ha sido desconectado.";
+
     // Determinar quién sigue conectado
     QString jugadorConectado = (jugadorADesconectar == player1Name) ? player2Name : player1Name;
 
+
+    // Mostrar quién sigue conectado
+    qDebug() << "El jugador que sigue conectado es:" << jugadorConectado;
+
     // Cerrar la ventana actual y abrir MainWindow
     MainWindow* mainWindow = new MainWindow();
-    mainWindow->setJugadorConectado(jugadorConectado);  // Paso del jugador que sigue conectado
+    mainWindow->setJugadorConectado(jugadorConectado);
     mainWindow->show();
 
-    //Cerrar la ventana de GameBoard
+    // Cerrar la ventana de GameBoard
     this->close();
 
     // Solicitar el nombre del nuevo jugador
@@ -94,6 +98,7 @@ void GameBoard::on_cerrarSesionButton_clicked() {
     }*/
 
 }
+
 
 
 void GameBoard::actualizarJugadores(const QString& jugador1, const QString& jugador2) {
