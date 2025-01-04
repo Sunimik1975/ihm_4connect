@@ -37,7 +37,7 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
     const QString& password, const QDate& birthdate, int points,
     const QImage& avatar) {
     if (!validatePlayerData(nickName, email, password, birthdate)) {
-        qDebug() << "Datos del jugador no válidos.";
+        qDebug() << "Datos del jugador no vï¿½lidos.";
         return nullptr;
     }
 
@@ -64,19 +64,19 @@ bool Connect4::validatePlayerData(const QString& nickName, const QString& email,
 
     QRegExp emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
     if (!emailRegex.exactMatch(email)) {
-        qDebug() << "El correo electrónico no tiene un formato válido.";
+        qDebug() << "El correo electrï¿½nico no tiene un formato vï¿½lido.";
         return false;
     }
 
     QRegExp passwordRegex(R"((?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%&*()-+=]).{8,20})");
     if (!passwordRegex.exactMatch(password)) {
-        qDebug() << "La contraseña no cumple con los requisitos de seguridad.";
+        qDebug() << "La contraseï¿½a no cumple con los requisitos de seguridad.";
         return false;
     }
 
     QDate currentDate = QDate::currentDate();
     if (birthdate.addYears(12) > currentDate) {
-        qDebug() << "El jugador debe tener al menos 12 años.";
+        qDebug() << "El jugador debe tener al menos 12 aï¿½os.";
         return false;
     }
 
@@ -118,6 +118,10 @@ Player* Connect4::getPlayer(const QString& nickName)
     }
     delete player;
     return nullptr;
+}
+
+Player* Connect4::searchPlayerByNickname(const QString& nickName) {
+    return getPlayer(nickName);
 }
 
 bool Connect4::existsNickName(const QString& nickName)
