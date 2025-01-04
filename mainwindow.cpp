@@ -37,13 +37,8 @@ void MainWindow::openRegisterWindow() {
         //qDebug() << "Conexión recibida en MainWindow";
 
         // Llama a la función Connect4::registerPlayer
-        Player* player = Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points,avatar);
+        Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points,avatar);
 
-        if (player) {
-            QMessageBox::information(this, "Éxito", "Jugador registrado exitosamente.");
-        } else {
-            QMessageBox::critical(this, "Error", "No se pudo registrar el jugador.");
-        }
     });
     if (connected) {
         qDebug() << "Conexión establecida correctamente.";
