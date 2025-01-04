@@ -45,6 +45,12 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
                                  const QImage& avatar) {
     qDebug() << "Intentando registrar jugador:" << nickName << email << password << birthdate << points;
 
+    if (existsNickName(nickName)) {
+        QMessageBox::warning(nullptr, "Error en registre", "El nickname ja està en ús.");
+        qDebug() << "Error: El nickname ja està en ús.";
+        return nullptr;
+    }
+
     if (!validatePlayerData(nickName, email, password, birthdate)) {
         qDebug() << "Error: Validación fallida para el jugador.";
         return nullptr;
