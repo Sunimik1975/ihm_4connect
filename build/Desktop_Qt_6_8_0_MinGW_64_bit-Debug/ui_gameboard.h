@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,7 @@ public:
     QPushButton *cerrarPushButton;
     QSpacerItem *verticalSpacer;
     QPushButton *cerrarPushButton2;
+    QListView *ranking;
 
     void setupUi(QWidget *GameBoard)
     {
@@ -36,21 +38,26 @@ public:
         gridLayout->setObjectName("gridLayout");
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 1, 1, 1, 1);
 
         cerrarPushButton = new QPushButton(GameBoard);
         cerrarPushButton->setObjectName("cerrarPushButton");
 
-        gridLayout->addWidget(cerrarPushButton, 0, 0, 1, 1);
+        gridLayout->addWidget(cerrarPushButton, 1, 0, 1, 1);
 
         verticalSpacer = new QSpacerItem(20, 249, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
-        gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
+        gridLayout->addItem(verticalSpacer, 2, 0, 1, 1);
 
         cerrarPushButton2 = new QPushButton(GameBoard);
         cerrarPushButton2->setObjectName("cerrarPushButton2");
 
-        gridLayout->addWidget(cerrarPushButton2, 0, 2, 1, 1);
+        gridLayout->addWidget(cerrarPushButton2, 1, 2, 1, 1);
+
+        ranking = new QListView(GameBoard);
+        ranking->setObjectName("ranking");
+
+        gridLayout->addWidget(ranking, 0, 1, 1, 1);
 
 
         retranslateUi(GameBoard);

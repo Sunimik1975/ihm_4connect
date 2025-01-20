@@ -45,12 +45,6 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
                                  const QImage& avatar) {
     qDebug() << "Intentando registrar jugador:" << nickName << email << password << birthdate << points;
 
-    if (existsNickName(nickName)) {
-        QMessageBox::warning(nullptr, "Error en registre", "El nickname ja està en ús.");
-        qDebug() << "Error: El nickname ja està en ús.";
-        return nullptr;
-    }
-
     if (!validatePlayerData(nickName, email, password, birthdate)) {
         qDebug() << "Error: Validación fallida para el jugador.";
         return nullptr;
@@ -68,6 +62,12 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
         return nullptr;
     }
 }
+
+Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
+                                 const QString& password, const QDate& birthdate, int points) {
+    return registerPlayer(nickName, email, password, birthdate, points, QImage());
+}
+
 
 
 
@@ -104,34 +104,6 @@ bool Connect4::validatePlayerData(const QString& nickName, const QString& email,
 
     return true;
 }
-
-
-
-
-Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
-                                 const QString& password, const QDate& birthdate, int points) {
-
-    qDebug() << "Intentando registrar jugador:" << nickName << email << password << birthdate << points;
-
-    if (!validatePlayerData(nickName, email, password, birthdate)) {
-        qDebug() << "Error: Validación fallida para el jugador.";
-        return nullptr;
-    }
-
-    Player* player = new Player(nickName, email, password, birthdate, points);
-
-    if (Connect4DAO::getInstance().addPlayer(*player)) {
-        qDebug() << "Jugador registrado exitosamente en la base de datos.";
-        return player;
-    } else {
-        qCritical() << "Error al agregar el jugador a la base de datos.";
-        delete player;
-        return nullptr;
-    }
-
-    return registerPlayer(nickName, email, password, birthdate, points, QImage());
-}
-
 
 Round* Connect4::registerRound(const QDateTime& timestamp, Player* winner, Player* loser) {
     Round* round = new Round(timestamp, winner, loser);

@@ -18,18 +18,24 @@ SOURCES += \
     connect4.cpp \
     gameboard.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    menu_principal.cpp \
+    rankingwindow.cpp
 
 HEADERS += \
     RegisterWindow.h \
     connect4.h \
     gameboard.h \
-    mainwindow.h
+    mainwindow.h \
+    menu_principal.h \
+    rankingwindow.h
 
 FORMS += \
     RegisterWindow.ui \
     gameboard.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    menu_principal.ui \
+    rankingwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

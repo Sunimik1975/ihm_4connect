@@ -54,6 +54,7 @@ void MainWindow::setJugadorConectado(const QString& jugador) {
 
 }
 
+
 // Método para cambiar el modo de juego (multiplayer o singleplayer)
 void MainWindow::setIsMultiplayer(bool multiplayer) {
     this->isMultiplayer = multiplayer;
@@ -101,7 +102,6 @@ void MainWindow::login() {
         QMessageBox::warning(this, "Error", "El nombre de usuario o la contraseña son incorrectos.");
     }
 }
-
 
 
 
