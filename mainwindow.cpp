@@ -30,8 +30,8 @@ void MainWindow::openRegisterWindow() {
 
     // Conectar la señal de RegisterWindow a la función que maneja el registro de jugadores en Connect4
     bool connected = connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString& nickName, const QString& email,
-                                                                       const QString& password, const QDate& birthdate,
-                                                                       int points, const QImage& avatar) {
+                                                                                        const QString& password, const QDate& birthdate,
+                                                                                        int points, const QImage& avatar) {
         //qDebug() << "Conexión recibida en MainWindow";
 
         // Llama a la función Connect4::registerPlayer

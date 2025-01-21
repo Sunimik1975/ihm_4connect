@@ -3,6 +3,10 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <QListWidget>
+#include <QListView>
+#include <QStandardItemModel>
+
 
 namespace Ui {
 class GameBoard;
@@ -17,11 +21,11 @@ public:
     ~GameBoard();
     void machineMove();
     void switchPlayer();
+    void loadRanking();
+
+public slots:
     void showRanking();
-
-
-
-
+    void on_modifyProfileButton_clicked();
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -36,6 +40,9 @@ private:
     int cellSize;
     int currentPlayer;
     bool isMachinePlayer2 = false;  // Nuevo atributo para indicar si el jugador 2 es una máquina
+private:
+    QListView* rankingListView;        // Reemplaza QListWidget con QListView
+    QStandardItemModel* rankingModel; // Modelo para manejar los datos
 
 
     QVector<QVector<int>> grid;

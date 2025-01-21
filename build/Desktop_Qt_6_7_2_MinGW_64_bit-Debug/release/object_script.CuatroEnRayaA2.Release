@@ -1,0 +1,12 @@
+release/RegisterWindow.o
+release/connect4.o
+release/gameboard.o
+release/main.o
+release/mainwindow.o
+release/menu_principal.o
+release/rankingwindow.o
+release/moc_RegisterWindow.o
+release/moc_gameboard.o
+release/moc_mainwindow.o
+release/moc_menu_principal.o
+release/moc_rankingwindow.o
