@@ -1,9 +1,11 @@
 #include "gameboard.h"
 #include "RegisterWindow.h"
+#include "player.h"
 //#include "build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/ui_gameboard.h"
 #include "connect4.h"
 #include "mainwindow.h"
 #include "rankingwindow.h"
+#include "ui_RegisterWindow.h"
 #include "ui_gameboard.h"
 #include <cstdlib>
 
@@ -14,6 +16,7 @@
 #include <QThread>
 #include <QVBoxLayout>
 #include <QtMath>
+
 
 GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *parent)
     : QWidget(parent)
@@ -338,13 +341,35 @@ void GameBoard::showRanking()
     rankingWindow->show();
 }
 
-void GameBoard::on_modifyProfileButton_clicked()
-{
-    // Aquí puedes reutilizar la lógica de [`RegisterWindow`](RegisterWindow.cpp) o crear una ventana
-    // para editar contraseña, email, fecha de nacimiento y avatar.
-    // Luego validas con [`Connect4::validatePlayerData`](connect4.cpp).
+void GameBoard::on_modifyProfileButton_clicked() {
+    Player* player2 = Connect4::getInstance().getPlayer(player2Name);
+    if (!player2) {
+        QMessageBox::warning(this, "Error", "No se encontró al jugador 2.");
+        return;
+    }
+
     RegisterWindow* registerWindow = new RegisterWindow();
-    qDebug() << "entra a la funcion on register  window del gameboard.";
+    Ui::RegisterWindow* ui = registerWindow->getUi();
+
+    // Rellenar campos con los datos actuales del jugador
+    ui->nicknameLineEdit->setText(player2->getNickName());
+    ui->emailLineEdit->setText(player2->getEmail());
+    ui->birthdateEdit->setDate(player2->getBirthdate());
+
+    // Deshabilitar edición del nickname
+    ui->nicknameLineEdit->setEnabled(false);
+
+    // Conectar la señal personalizada para guardar cambios
+    connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString&, const QString& email, const QString& password, const QDate& birthdate, int, const QImage& avatar) {
+        player2->setEmail(email);
+        player2->setPassword(password);
+        player2->setBirthdate(birthdate);
+        player2->setAvatar(avatar);
+
+        // Persistir cambios en la base de datos
+        player2->updateDatabase();
+        QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
+    });
 
     registerWindow->show();
 }

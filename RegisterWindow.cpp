@@ -48,16 +48,9 @@ void RegisterWindow::on_registerButton_clicked() {
         // Detener si los datos no son válidos
         return;
     }
-    else{
-        Connect4::getInstance().registerPlayer(nickName, email, password, birthdate,points);
-    }
 
     emit registerPlayer(nickName, email, password, birthdate, points, avatar);
     //qDebug() << "Señal emitida: registerPlayer(" << nickName << ", " << email << ", " << password << ", " << birthdate << ", " << points << ")";
 
     this->hide();
 }
-
-
-
-

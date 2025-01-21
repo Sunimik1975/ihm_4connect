@@ -34,6 +34,8 @@ public:
     int getPoints() const;
     void addPoints(int points);
 
+    void updateDatabase(); // Método auxiliar para persistir cambios
+
 private:
     QString nickName;
     QString email;
@@ -42,7 +44,7 @@ private:
     QDate birthdate;
     int points;
 
-    void updateDatabase(); // Método auxiliar para persistir cambios
+
 };
 
 #endif // PLAYER_H

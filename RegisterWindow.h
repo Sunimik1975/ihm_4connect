@@ -16,6 +16,7 @@ class RegisterWindow : public QDialog {
     Q_OBJECT
 
 public:
+    Ui::RegisterWindow* getUi() const { return ui; }
     explicit RegisterWindow(QWidget *parent = nullptr);
     ~RegisterWindow();
 
