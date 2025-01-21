@@ -18,6 +18,8 @@ public:
     void setJugadorConectado(const QString& jugador);
     QString jugadorConectado;      // Jugador que sigue conectado
     void setIsMultiplayer(bool multiplayer);
+    void Remember_contrasenya();
+
 
 
 private slots:

@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // Conectar el botón de la interfaz al slot openRegisterWindow()
     connect(ui->registerButtonM, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::login);
+    connect(ui->recorveryPassword, &QPushButton::clicked, this, &MainWindow::Remember_contrasenya);
+
     //connect(ui->rankingButton, &QPushButton::clicked, this, &MainWindow::showRanking);  // Connect the ranking button
 }
 
@@ -104,7 +106,48 @@ void MainWindow::login() {
 }
 
 
+#include <QInputDialog>
+#include <cstdlib>  // Para generar números aleatorios
+#include <ctime>    // Para inicializar la semilla aleatoria
 
+void MainWindow::Remember_contrasenya() {
+    // Solicitar nombre de usuario
+    QString username = QInputDialog::getText(this, "Recuperar contraseña", "Introduce tu nombre de usuario:");
+    if (username.isEmpty()) {
+        QMessageBox::warning(this, "Error", "El nombre de usuario no puede estar vacío.");
+        return;
+    }
 
+    // Solicitar correo electrónico
+    QString email = QInputDialog::getText(this, "Recuperar contraseña", "Introduce tu correo electrónico:");
+    if (email.isEmpty()) {
+        QMessageBox::warning(this, "Error", "El correo electrónico no puede estar vacío.");
+        return;
+    }
 
+    // Verificar si el usuario y correo coinciden en el sistema
+    Player* player = Connect4::getInstance().getPlayer(username);
+    if (!player || player->getEmail() != email) {
+        QMessageBox::warning(this, "Error", "El usuario o correo electrónico no coinciden con los registros.");
+        return;
+    }
 
+    // Generar un código de seguridad aleatorio
+    std::srand(std::time(0));  // Inicializar la semilla aleatoria
+    int securityCode = std::rand() % 900000 + 100000;  // Generar un número de 6 dígitos
+    QString codeString = QString::number(securityCode);
+
+    // Simular el envío del código de seguridad
+    QMessageBox::information(this, "Código de seguridad", QString("Tu código de seguridad es: %1").arg(codeString));
+
+    // Solicitar el código de seguridad al usuario
+    QString enteredCode = QInputDialog::getText(this, "Verificar código de seguridad", "Introduce el código de seguridad que recibiste:");
+    if (enteredCode.isEmpty() || enteredCode != codeString) {
+        QMessageBox::warning(this, "Error", "El código de seguridad es incorrecto o no coincide.");
+        return;
+    }
+
+    // Mostrar la contraseña al usuario
+    QString password = player->getPassword();
+    QMessageBox::information(this, "Recuperación exitosa", QString("Tu contraseña es: %1").arg(password));
+}
