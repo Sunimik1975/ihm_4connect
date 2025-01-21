@@ -34,7 +34,8 @@ FORMS += \
     RegisterWindow.ui \
     gameboard.ui \
     mainwindow.ui \
-    menu_principal.ui
+    menu_principal.ui \
+    rankingwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

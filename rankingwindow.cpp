@@ -1,30 +1,32 @@
-#include "RankingWindow.h"
+#include "rankingwindow.h"
+#include "ui_rankingwindow.h"
 #include <QVBoxLayout>
 #include <QListView>  // Agregar este include
 #include "Player.h"
 #include "connect4.h"
-#include "rankingwindow.h"
 
-RankingWindow::RankingWindow(QWidget* parent) {
-    // Crear el modelo y la QListView
+rankingwindow::rankingwindow(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::rankingwindow)
+{
+    ui->setupUi(this);
+
+    // Crear el modelo de la lista
     model = new QStringListModel(this);
-    listView = new QListView(this);
 
-    // Configurar la vista
-    listView->setModel(model);
-
-    // Layout para la ventana
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget(listView);
-    setLayout(layout);
+    // Asignar el modelo al QListView ya existente en la UI
+    ui->listView->setModel(model);
 
     // Cargar el ranking al abrir la ventana
     loadRanking();
 }
 
-RankingWindow::~RankingWindow() {}
+rankingwindow::~rankingwindow()
+{
+    delete ui;
+}
 
-void RankingWindow::loadRanking() {
+void rankingwindow::loadRanking() {
     // Obtener la lista de jugadores desde Connect4
     QList<Player*> players = Connect4::getInstance().getRanking();
 

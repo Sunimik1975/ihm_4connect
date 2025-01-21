@@ -333,7 +333,7 @@ bool GameBoard::checkWin(int row, int col)
 
 void GameBoard::showRanking()
 {
-    RankingWindow *rankingWindow = new RankingWindow();
+    rankingwindow *rankingWindow = new rankingwindow();
 
     rankingWindow->show();
 }
