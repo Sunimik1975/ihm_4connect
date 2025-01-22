@@ -68,6 +68,13 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="Mostrar_rounds">
+     <property name="text">
+      <string>Mostrar Rounds</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

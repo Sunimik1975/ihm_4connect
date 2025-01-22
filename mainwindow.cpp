@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Conectar el botón de la interfaz al slot openRegisterWindow()
     connect(ui->registerButtonM, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::login);
-    connect(ui->recorveryPassword, &QPushButton::clicked, this, &MainWindow::Remember_contrasenya);
+    connect(ui->nose_contra, &QPushButton::clicked, this, &MainWindow::Remember_contrasenya);
 
     //connect(ui->rankingButton, &QPushButton::clicked, this, &MainWindow::showRanking);  // Connect the ranking button
 }
@@ -151,3 +151,10 @@ void MainWindow::Remember_contrasenya() {
     QString password = player->getPassword();
     QMessageBox::information(this, "Recuperación exitosa", QString("Tu contraseña es: %1").arg(password));
 }
+
+
+
+
+
+
+

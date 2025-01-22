@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +21,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu_principal.cpp \
-    rankingwindow.cpp
+    rankingwindow.cpp \
+    rounds.cpp \
+    staticsplayer.cpp
 
 HEADERS += \
     RegisterWindow.h \
@@ -28,14 +31,18 @@ HEADERS += \
     gameboard.h \
     mainwindow.h \
     menu_principal.h \
-    rankingwindow.h
+    rankingwindow.h \
+    rounds.h \
+    staticsplayer.h
 
 FORMS += \
     RegisterWindow.ui \
     gameboard.ui \
     mainwindow.ui \
     menu_principal.ui \
-    rankingwindow.ui
+    rankingwindow.ui \
+    rounds.ui \
+    staticsplayer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

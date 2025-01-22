@@ -23,9 +23,13 @@ public:
     void switchPlayer();
     void loadRanking();
 
+
+
 public slots:
     void showRanking();
-    void on_modifyProfileButton_clicked();
+    void on_modifyProfilePlayer2Button_clicked();
+    void showRounds();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

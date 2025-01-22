@@ -54,3 +54,7 @@ void RegisterWindow::on_registerButton_clicked() {
 
     this->hide();
 }
+
+
+
+

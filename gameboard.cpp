@@ -1,14 +1,14 @@
 #include "gameboard.h"
-#include "RegisterWindow.h"
-#include "player.h"
 //#include "build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/ui_gameboard.h"
 #include "connect4.h"
 #include "mainwindow.h"
 #include "rankingwindow.h"
+#include "RegisterWindow.h"
+#include "rounds.h"
 #include "ui_RegisterWindow.h"
 #include "ui_gameboard.h"
 #include <cstdlib>
-
+#include "Player.h"
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QMouseEvent>
@@ -16,7 +16,6 @@
 #include <QThread>
 #include <QVBoxLayout>
 #include <QtMath>
-
 
 GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *parent)
     : QWidget(parent)
@@ -37,7 +36,9 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     connect(ui->cerrarPushButton,&QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
     connect(ui->cerrarPushButton2, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
     connect(ui->rankingbutton, &QPushButton::clicked, this, &GameBoard::showRanking);
-    connect(ui->modifyProfileButton2, &QPushButton::clicked, this, &GameBoard::on_modifyProfileButton_clicked);
+    connect(ui->modifyProfileButton2, &QPushButton::clicked, this, &GameBoard::on_modifyProfilePlayer2Button_clicked);
+    connect(ui->Mostrar_rounds, &QPushButton::clicked, this, &GameBoard::showRounds);
+
 }
 
 GameBoard::~GameBoard()
@@ -341,7 +342,14 @@ void GameBoard::showRanking()
     rankingWindow->show();
 }
 
-void GameBoard::on_modifyProfileButton_clicked() {
+void GameBoard::showRounds()
+{
+    rounds *roundsDialog = new rounds(this); // Crea un diálogo de la clase rounds
+    roundsDialog->show(); // Muestra el diálogo
+}
+
+
+void GameBoard::on_modifyProfilePlayer2Button_clicked() {
     Player* player2 = Connect4::getInstance().getPlayer(player2Name);
     if (!player2) {
         QMessageBox::warning(this, "Error", "No se encontró al jugador 2.");
@@ -373,3 +381,5 @@ void GameBoard::on_modifyProfileButton_clicked() {
 
     registerWindow->show();
 }
+
+

@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
+    Ui::MainWindow *ui;
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void setJugadorConectado(const QString& jugador);
@@ -27,7 +28,7 @@ private slots:
     void login();
 
 private:
-    Ui::MainWindow *ui;
+
     QList<QString> activePlayers;  // Lista de jugadores activos
     //QString jugadorConectado;      // Jugador que sigue conectado
     bool isMultiplayer;  // Variable para almacenar si es multiplayer o no

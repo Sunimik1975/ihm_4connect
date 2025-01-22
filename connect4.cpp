@@ -157,3 +157,5 @@ QList<Round*> Connect4::getRoundsForPlayer(Player* player) {
 void Connect4::clearAllData() {
     Connect4DAO::getInstance().clearAllData();
 }
+
+
