@@ -6,17 +6,21 @@
 #include <QMessageBox>
 #include "gameboard.h"
 #include "Connect4DAO.h"
+#include <QApplication>
+#include <QPalette> // Para manejar colores en la aplicación
 
 Menu_principal::Menu_principal(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Menu_principal)
+    , highContrastEnabled(false) // Inicializamos como false
+
 {
     ui->setupUi(this);
-
     // Conectar botones a las funciones correspondientes
     connect(ui->Singleplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnSinglePlayer_clicked);
     connect(ui->multiplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnMultiPlayer_clicked);
-}
+    connect(ui->fondo, &QPushButton::clicked, this, &Menu_principal::on_btnHighContrast_clicked);
+    }
 
 Menu_principal::~Menu_principal()
 {
@@ -58,7 +62,6 @@ void Menu_principal::on_btnSinglePlayer_clicked() {
     this->hide();
 }
 
-
 // Esta función lanza el juego en modo Multiplayer
 void Menu_principal::on_btnMultiPlayer_clicked()
 {
@@ -73,4 +76,109 @@ void Menu_principal::on_btnMultiPlayer_clicked()
 
     // Ocultar el menú principal
     hide();
+}
+
+
+void Menu_principal::on_btnHighContrast_clicked()
+{
+    if (highContrastEnabled) {
+        // Cambiar al modo normal: Fondo blanco y estilo predeterminado
+        QPalette lightPalette;
+
+        // Configurar el fondo blanco puro
+        lightPalette.setColor(QPalette::Window, Qt::white); // Fondo general
+        lightPalette.setColor(QPalette::Base, Qt::white);   // Fondo de widgets
+        lightPalette.setColor(QPalette::AlternateBase, Qt::lightGray); // Alternativo
+
+        // Colores del texto
+        lightPalette.setColor(QPalette::WindowText, Qt::black); // Texto general
+        lightPalette.setColor(QPalette::Text, Qt::black);       // Texto en widgets
+        lightPalette.setColor(QPalette::ButtonText, Qt::black); // Texto en botones
+        lightPalette.setColor(QPalette::ToolTipText, Qt::black);
+
+        // Colores de botones
+        lightPalette.setColor(QPalette::Button, Qt::white); // Fondo de botones
+
+        // Colores de selección
+        lightPalette.setColor(QPalette::Highlight, QColor(100, 100, 255)); // Resaltado azul
+        lightPalette.setColor(QPalette::HighlightedText, Qt::white);
+
+        // Aplicar la paleta clara a la aplicación
+        qApp->setPalette(lightPalette);
+
+        // Eliminar hojas de estilo personalizadas
+        qApp->setStyleSheet("");
+
+        QMessageBox::information(this, "Modo Normal", "El modo normal se ha activado.");
+        highContrastEnabled = false; // Actualizar el estado
+    } else {
+        // Cambiar al modo de alto contraste
+        QPalette darkPalette;
+
+        // Fondo general
+        darkPalette.setColor(QPalette::Window, QColor(35, 35, 35)); // Fondo oscuro
+        darkPalette.setColor(QPalette::Base, QColor(45, 45, 45));   // Fondo de widgets
+        darkPalette.setColor(QPalette::AlternateBase, QColor(60, 60, 60));
+
+        // Colores del texto
+        darkPalette.setColor(QPalette::WindowText, Qt::white); // Texto general
+        darkPalette.setColor(QPalette::Text, Qt::black);       // Texto en widgets
+        darkPalette.setColor(QPalette::ButtonText, Qt::white); // Texto en botones
+        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+
+        // Colores de botones
+        darkPalette.setColor(QPalette::Button, QColor(50, 50, 50)); // Fondo de botones
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+
+        // Colores de selección
+        darkPalette.setColor(QPalette::Highlight, QColor(100, 100, 255)); // Resaltado azul
+        darkPalette.setColor(QPalette::HighlightedText, Qt::white);
+
+        // Aplicar la paleta de alto contraste a la aplicación
+        qApp->setPalette(darkPalette);
+
+        // Estilo global para botones y cuadros de diálogo
+        QString globalStyle = R"(
+            QPushButton {
+                background-color: #323232;
+                color: white;
+                border: 1px solid #555555;
+                border-radius: 5px;
+                padding: 5px;
+            }
+            QPushButton:hover {
+                background-color: #505050;
+            }
+            QPushButton:pressed {
+                background-color: #282828;
+            }
+            QMessageBox {
+                background-color: #323232;
+                color: white;
+                border: 1px solid #555555;
+                border-radius: 10px;
+            }
+            QMessageBox QLabel {
+                color: white;
+            }
+            QMessageBox QPushButton {
+                background-color: #505050;
+                color: white;
+                border: 1px solid #777777;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            QMessageBox QPushButton:hover {
+                background-color: #606060;
+            }
+            QMessageBox QPushButton:pressed {
+                background-color: #404040;
+            }
+        )";
+
+        qApp->setStyleSheet(globalStyle);
+
+        QMessageBox::information(this, "Modo Alto Contraste", "El modo de alto contraste se ha activado.");
+        highContrastEnabled = true; // Actualizar el estado
+    }
 }
