@@ -35,9 +35,10 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     // Conectar botones
     connect(ui->cerrarPushButton,&QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
     connect(ui->cerrarPushButton2, &QPushButton::clicked, this, &GameBoard::on_cerrarSesionButton_clicked);
-    connect(ui->rankingbutton, &QPushButton::clicked, this, &GameBoard::showRanking);
+    //connect(ui->rankingbutton, &QPushButton::clicked, this, &GameBoard::showRanking);
     connect(ui->modifyProfileButton2, &QPushButton::clicked, this, &GameBoard::on_modifyProfilePlayer2Button_clicked);
-    connect(ui->Mostrar_rounds, &QPushButton::clicked, this, &GameBoard::showRounds);
+    connect(ui->modifyProfileButton1, &QPushButton::clicked, this, &GameBoard::on_modifyProfilePlayer1Button_clicked);
+    //connect(ui->Mostrar_rounds, &QPushButton::clicked, this, &GameBoard::showRounds);
 
 }
 
@@ -46,10 +47,32 @@ GameBoard::~GameBoard()
     delete ui;
 }
 
-void GameBoard::on_cerrarSesionButton_clicked()
-{
+void GameBoard::updatePlayerLabels() {
+    // Actualizar nombre
+    ui->label_player1_name->setText(player1Name);
+    ui->label_player2_name->setText(player2Name);
+
+    // Actualizar puntos (suponiendo que tienes un método getPoints para obtener los puntos de cada jugador)
+    Player* player1 = Connect4::getInstance().getPlayer(player1Name);
+    Player* player2 = Connect4::getInstance().getPlayer(player2Name);
+
+    if (player1) {
+        ui->label_player1_points->setText(QString("Puntos: %1").arg(player1->getPoints()));
+        QPixmap avatarPixmap = QPixmap::fromImage(player1->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio);
+        ui->label_player1_avatar->setPixmap(avatarPixmap);
+    }
+
+    if (player2) {
+        ui->label_player2_points->setText(QString("Puntos: %1").arg(player2->getPoints()));
+        QPixmap avatarPixmap = QPixmap::fromImage(player2->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio);
+        ui->label_player2_avatar->setPixmap(avatarPixmap);
+    }
+}
+
+void GameBoard::on_cerrarSesionButton_clicked() {
+
     // Identificar qué botón fue presionado
-    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
 
     QString jugadorADesconectar;
 
@@ -70,12 +93,20 @@ void GameBoard::on_cerrarSesionButton_clicked()
     // Determinar quién sigue conectado
     QString jugadorConectado = (jugadorADesconectar == player1Name) ? player2Name : player1Name;
 
+
     // Mostrar quién sigue conectado
     qDebug() << "El jugador que sigue conectado es:" << jugadorConectado;
 
     // Cerrar la ventana actual y abrir MainWindow
-    MainWindow *mainWindow = new MainWindow();
+    MainWindow* mainWindow = new MainWindow();
     mainWindow->setJugadorConectado(jugadorConectado);
+    if (player1Name == "Maquina" || player2Name == "Maquina"){
+        mainWindow->setIsMultiplayer(false);
+    }
+    else{
+        mainWindow->setIsMultiplayer(true);
+
+    }
     mainWindow->show();
 
     // Cerrar la ventana de GameBoard
@@ -104,8 +135,8 @@ void GameBoard::on_cerrarSesionButton_clicked()
     } else {
         qDebug() << "No se ha conectado ningún nuevo jugador.";
     }*/
-}
 
+}
 void GameBoard::actualizarJugadores(const QString &jugador1, const QString &jugador2)
 {
     player1Name = jugador1;
@@ -231,6 +262,8 @@ void GameBoard::switchPlayer()
     currentPlayer = (currentPlayer == 1) ? 2 : 1;
     QString nextPlayerName = (currentPlayer == 1) ? player1Name : player2Name;
     qDebug() << "Turno de" << nextPlayerName;
+    // Actualiza las etiquetas con la información más reciente de los jugadores
+    updatePlayerLabels();
 }
 
 void GameBoard::machineMove()
@@ -382,4 +415,36 @@ void GameBoard::on_modifyProfilePlayer2Button_clicked() {
     registerWindow->show();
 }
 
+void GameBoard::on_modifyProfilePlayer1Button_clicked() {
+    Player* player1 = Connect4::getInstance().getPlayer(player1Name);
+    if (!player1) {
+        QMessageBox::warning(this, "Error", "No se encontró al jugador 2.");
+        return;
+    }
 
+    RegisterWindow* registerWindow = new RegisterWindow();
+    Ui::RegisterWindow* ui = registerWindow->getUi();
+
+    // Rellenar campos con los datos actuales del jugador
+    ui->nicknameLineEdit->setText(player1->getNickName());
+    ui->emailLineEdit->setText(player1->getEmail());
+    ui->birthdateEdit->setDate(player1->getBirthdate());
+    ui->avatarLabel->setPixmap(QPixmap::fromImage(player1->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio));
+
+    // Deshabilitar edición del nickname
+    ui->nicknameLineEdit->setEnabled(false);
+
+    // Conectar la señal personalizada para guardar cambios
+    connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString&, const QString& email, const QString& password, const QDate& birthdate, int, const QImage& avatar) {
+        player1->setEmail(email);
+        player1->setPassword(password);
+        player1->setBirthdate(birthdate);
+        player1->setAvatar(avatar);
+
+        // Persistir cambios en la base de datos
+        player1->updateDatabase();
+        QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
+    });
+    updatePlayerLabels();
+    registerWindow->show();
+}

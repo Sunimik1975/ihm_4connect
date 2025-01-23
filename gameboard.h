@@ -29,6 +29,9 @@ public slots:
     void showRanking();
     void on_modifyProfilePlayer2Button_clicked();
     void showRounds();
+    void on_modifyProfilePlayer1Button_clicked();
+    void updatePlayerLabels();
+
 
 protected:
     void paintEvent(QPaintEvent *event) override;
