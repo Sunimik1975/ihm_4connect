@@ -27,6 +27,21 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     , player2Name(player2)
 {
     ui->setupUi(this);
+    // Crear el tablero dentro del layout de la UI
+    QWidget *boardWidget = new QWidget(this);
+    QVBoxLayout *boardLayout = new QVBoxLayout(boardWidget);
+    boardWidget->setLayout(boardLayout);
+
+    // Establecer `tablajuego` como contenedor
+    if (ui->tablajuego->layout()) {
+        QLayout *oldLayout = ui->tablajuego->layout();
+        QLayoutItem *item;
+        while ((item = oldLayout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete oldLayout;
+    }
     grid.resize(rows, QVector<int>(cols, 0));
     setMinimumSize(cols * 40, rows * 40);
 

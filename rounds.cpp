@@ -32,7 +32,7 @@ rounds::rounds(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Configuración inicial de la tabla
+    /* Configuración inicial de la tabla
     model->setColumnCount(3);
     model->setHeaderData(0, Qt::Horizontal, "Día y Hora");
     model->setHeaderData(1, Qt::Horizontal, "Ganador");
@@ -42,7 +42,7 @@ rounds::rounds(QWidget *parent) :
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-
+    */
     // Solicitar el nombre del jugador
     bool ok;
     playerName = QInputDialog::getText(this, tr("Ingresar nombre del jugador"),
@@ -60,7 +60,8 @@ rounds::rounds(QWidget *parent) :
     connect(ui->jugador_tiempo, &QPushButton::clicked, this, &rounds::filterRoundsByDate);
     //ganadas/perdidas
     connect(ui->ganadas, &QPushButton::clicked, this, &rounds::filterRoundsByDateAndWins);
-    connect(ui->perdidas, &QPushButton::clicked, this, &rounds::showPlayerStatsByDate);
+    connect(ui->perdidas, &QPushButton::clicked, this, &rounds::filterRoundsByDateAndLoses);
+    //connect(ui->graficas, &QPushButton::clicked, this, &rounds::openStatisticsWindow);
 
 }
 
@@ -142,6 +143,34 @@ void rounds::filterRoundsByDate()
     if (filteredRounds.isEmpty()) {
         QMessageBox::information(this, "Sin partidas", "No se encontraron partidas en el rango de fechas seleccionado.");
     }
+    // Crear un diálogo para mostrar los datos
+    QDialog* dialog = new QDialog(this);
+    dialog->setWindowTitle("Partidas Ganadas");
+
+    QVBoxLayout* layout = new QVBoxLayout(dialog);
+    QTableWidget* table = new QTableWidget(dialog);
+    table->setColumnCount(3); // Columnas: Fecha y Hora, Ganador, Perdedor
+    table->setHorizontalHeaderLabels({"Fecha y Hora", "Ganador", "Perdedor"});
+
+    // Llenar la tabla solo con las partidas ganadas
+    table->setRowCount(filteredRounds.size());
+    for (int i = 0; i < filteredRounds.size(); ++i) {
+        Round* round = filteredRounds[i];
+        table->setItem(i, 0, new QTableWidgetItem(round->getTimestamp().toString("yyyy-MM-dd hh:mm:ss"))); // Fecha y Hora
+        table->setItem(i, 1, new QTableWidgetItem(round->getWinner()->getNickName())); // Ganador
+        table->setItem(i, 2, new QTableWidgetItem(round->getLoser()->getNickName()));  // Perdedor
+    }
+
+    table->resizeColumnsToContents();
+    layout->addWidget(table);
+    dialog->setLayout(layout);
+
+    // Botón para cerrar el diálogo
+    QPushButton* closeButton = new QPushButton("Cerrar", dialog);
+    layout->addWidget(closeButton);
+    connect(closeButton, &QPushButton::clicked, dialog, &QDialog::accept);
+
+    dialog->exec();
 }
 
 void rounds::showAllPlayersWithRounds()
@@ -177,6 +206,7 @@ void rounds::showAllPlayersWithRounds()
     std::sort(allRounds.begin(), allRounds.end(), [](Round* a, Round* b) {
         return a->getTimestamp() > b->getTimestamp();
     });
+
 
     // Crear un diálogo para mostrar los datos
     QDialog* dialog = new QDialog(this);
@@ -244,19 +274,36 @@ void rounds::filterRoundsByDateAndWins()
         }
     }
 
-    // Mostrar las rondas filtradas en la tabla
-    model->setRowCount(filteredRounds.size());
+    // Crear un diálogo para mostrar los datos
+    QDialog* dialog = new QDialog(this);
+    dialog->setWindowTitle("Partidas Ganadas");
+
+    QVBoxLayout* layout = new QVBoxLayout(dialog);
+    QTableWidget* table = new QTableWidget(dialog);
+    table->setColumnCount(3); // Columnas: Fecha y Hora, Ganador, Perdedor
+    table->setHorizontalHeaderLabels({"Fecha y Hora", "Ganador", "Perdedor"});
+
+    // Llenar la tabla solo con las partidas ganadas
+    table->setRowCount(filteredRounds.size());
     for (int i = 0; i < filteredRounds.size(); ++i) {
         Round* round = filteredRounds[i];
-        model->setItem(i, 0, new QStandardItem(round->getTimestamp().toString("yyyy-MM-dd hh:mm:ss")));
-        model->setItem(i, 1, new QStandardItem(round->getWinner()->getNickName()));
-        model->setItem(i, 2, new QStandardItem(round->getLoser()->getNickName()));
+        table->setItem(i, 0, new QTableWidgetItem(round->getTimestamp().toString("yyyy-MM-dd hh:mm:ss"))); // Fecha y Hora
+        table->setItem(i, 1, new QTableWidgetItem(round->getWinner()->getNickName())); // Ganador
+        table->setItem(i, 2, new QTableWidgetItem(round->getLoser()->getNickName()));  // Perdedor
     }
 
-    if (filteredRounds.isEmpty()) {
-        QMessageBox::information(this, "Sin partidas", "No se encontraron partidas del jugador como ganador en el rango de fechas seleccionado.");
-    }
+    table->resizeColumnsToContents();
+    layout->addWidget(table);
+    dialog->setLayout(layout);
+
+    // Botón para cerrar el diálogo
+    QPushButton* closeButton = new QPushButton("Cerrar", dialog);
+    layout->addWidget(closeButton);
+    connect(closeButton, &QPushButton::clicked, dialog, &QDialog::accept);
+
+    dialog->exec();
 }
+
 
 
 void rounds::filterRoundsByDateAndLoses()
@@ -307,6 +354,35 @@ void rounds::filterRoundsByDateAndLoses()
     if (filteredRounds.isEmpty()) {
         QMessageBox::information(this, "Sin partidas", "No se encontraron partidas del jugador como ganador en el rango de fechas seleccionado.");
     }
+
+    // Crear un diálogo para mostrar los datos
+    QDialog* dialog = new QDialog(this);
+    dialog->setWindowTitle("Partidas Ganadas");
+
+    QVBoxLayout* layout = new QVBoxLayout(dialog);
+    QTableWidget* table = new QTableWidget(dialog);
+    table->setColumnCount(3); // Columnas: Fecha y Hora, Ganador, Perdedor
+    table->setHorizontalHeaderLabels({"Fecha y Hora", "Ganador", "Perdedor"});
+
+    // Llenar la tabla solo con las partidas ganadas
+    table->setRowCount(filteredRounds.size());
+    for (int i = 0; i < filteredRounds.size(); ++i) {
+        Round* round = filteredRounds[i];
+        table->setItem(i, 0, new QTableWidgetItem(round->getTimestamp().toString("yyyy-MM-dd hh:mm:ss"))); // Fecha y Hora
+        table->setItem(i, 1, new QTableWidgetItem(round->getWinner()->getNickName())); // Ganador
+        table->setItem(i, 2, new QTableWidgetItem(round->getLoser()->getNickName()));  // Perdedor
+    }
+
+    table->resizeColumnsToContents();
+    layout->addWidget(table);
+    dialog->setLayout(layout);
+
+    // Botón para cerrar el diálogo
+    QPushButton* closeButton = new QPushButton("Cerrar", dialog);
+    layout->addWidget(closeButton);
+    connect(closeButton, &QPushButton::clicked, dialog, &QDialog::accept);
+
+    dialog->exec();
 }
 
 
