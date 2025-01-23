@@ -171,7 +171,7 @@ void Menu_principal::on_btnHighContrast_clicked()
         }
         // Ya se aplica el estilo de alto contraste desde el archivo QSS
         //QMessageBox::information(this, "Modo claro", "El modo claro se ha activado.");
-        highContrastEnabled = true;
+        highContrastEnabled = false;
     } else {
         // Cambiar al modo normal (opcional, si tienes otro archivo .qss para modo normal)
         QFile normalStyleFile(":/estilos/estilos.qss");
@@ -182,7 +182,7 @@ void Menu_principal::on_btnHighContrast_clicked()
         }
 
         //QMessageBox::information(this, "Modo oscuro", "El modo oscuro se ha activado.");
-        highContrastEnabled = false;
+        highContrastEnabled = true;
 
     }
 }

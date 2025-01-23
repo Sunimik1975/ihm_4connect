@@ -111,32 +111,3 @@ QScrollBar::handle:hover {
 QScrollBar::add-line, QScrollBar::sub-line {
     background-color: #2D2D2D;
 }
-/* Ventana de error */
-QMessageBox {
-    background-color: #2D2D2D; /* Fondo gris oscuro */
-    color: white;              /* Texto blanco */
-    border: 1px solid #555555; /* Bordes grises */
-    border-radius: 10px;       /* Esquinas redondeadas opcionales */
-}
-
-/* Etiqueta de texto en QMessageBox */
-QMessageBox QLabel {
-    color: white; /* Texto blanco */
-}
-
-/* Botones en QMessageBox */
-QMessageBox QPushButton {
-    background-color: #505050; /* Fondo oscuro */
-    color: white;              /* Texto blanco */
-    border: 1px solid #777777; /* Bordes más claros */
-    padding: 5px;
-    border-radius: 5px;
-}
-
-QMessageBox QPushButton:hover {
-    background-color: #606060; /* Fondo más claro al pasar el mouse */
-}
-
-QMessageBox QPushButton:pressed {
-    background-color: #404040; /* Fondo más oscuro al presionar */
-}
