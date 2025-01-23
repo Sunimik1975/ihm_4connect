@@ -120,7 +120,7 @@ void Menu_principal::on_btnSinglePlayer_clicked() {
 // Esta función lanza el juego en modo Multiplayer
 void Menu_principal::on_btnMultiPlayer_clicked()
 {
-   /* // Crear la ventana principal para multiplayer
+    // Crear la ventana principal para multiplayer
     MainWindow *mainWindow = new MainWindow(this);
 
     // Indicar que el juego es en modo multiplayer
@@ -130,8 +130,8 @@ void Menu_principal::on_btnMultiPlayer_clicked()
     mainWindow->show();
 
     // Ocultar el menú principal
-    hide();*/
-
+    hide();
+/*
     // Obtener la instancia de Connect4
     Connect4& game = Connect4::getInstance();
 
@@ -151,6 +151,7 @@ void Menu_principal::on_btnMultiPlayer_clicked()
         // Cancelación del borrado
         QMessageBox::information(this, "Cancelado", "No se han eliminado los datos.");
     }
+*/
 
 }
 
