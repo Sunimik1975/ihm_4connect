@@ -22,7 +22,7 @@ public:
     void machineMove();
     void switchPlayer();
     void loadRanking();
-
+    void resetGame();
 
 
 public slots:
@@ -46,7 +46,9 @@ private:
     int cols;
     int cellSize;
     int currentPlayer;
-    bool isMachinePlayer2 = false;  // Nuevo atributo para indicar si el jugador 2 es una máquina
+    bool isMachinePlayer2 = false;
+    bool gameOver;  // Variable para saber si el juego ha terminado
+    // Nuevo atributo para indicar si el jugador 2 es una máquina
 private:
     QListView* rankingListView;        // Reemplaza QListWidget con QListView
     QStandardItemModel* rankingModel; // Modelo para manejar los datos

@@ -25,7 +25,10 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     , currentPlayer(1)
     , player1Name(player1)
     , player2Name(player2)
+
 {
+    gameOver = false;  // El juego no ha terminado al inicio
+
     ui->setupUi(this);
     // Crear el tablero dentro del layout de la UI
     QWidget *boardWidget = new QWidget(this);
@@ -33,8 +36,8 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     boardWidget->setLayout(boardLayout);
 
     // Establecer `tablajuego` como contenedor
-    if (ui->caca->layout()) {
-        QLayout *oldLayout = ui->caca->layout();
+    if (ui->tablajuego->layout()) {
+        QLayout *oldLayout = ui->tablajuego->layout();
         QLayoutItem *item;
         while ((item = oldLayout->takeAt(0)) != nullptr) {
             delete item->widget();
@@ -53,6 +56,8 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     //connect(ui->rankingbutton, &QPushButton::clicked, this, &GameBoard::showRanking);
     connect(ui->modifyProfileButton2, &QPushButton::clicked, this, &GameBoard::on_modifyProfilePlayer2Button_clicked);
     connect(ui->modifyProfileButton1, &QPushButton::clicked, this, &GameBoard::on_modifyProfilePlayer1Button_clicked);
+    connect(ui->reset, &QPushButton::clicked, this, &GameBoard::resetGame);
+
     //connect(ui->Mostrar_rounds, &QPushButton::clicked, this, &GameBoard::showRounds);
 
 }
@@ -205,67 +210,86 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 }
 
+void GameBoard::resetGame() {
+    // Restaura el estado del juego
+    gameOver = false;
+
+    // Reinicia el tablero (vacía todas las posiciones)
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            grid[i][j] = 0; // Vacía la celda (o el valor inicial)
+        }
+    }
+    void paintEvent();
+    // Llama a repaint() para redibujar el tablero
+    update();
+}
+
+
 void GameBoard::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton
-        && currentPlayer <= 2) { // Solo permite interacción para Jugador 1 o Jugador 2
-        int x = event->pos().x();
-        QRect geom = geometry();
-        int width = geom.width();
-        int x0 = (width - (cols * cellSize)) / 2;
+    if (gameOver){
+        return;
+    }else{
+        if (event->button() == Qt::LeftButton
+            && currentPlayer <= 2) { // Solo permite interacción para Jugador 1 o Jugador 2
+            int x = event->pos().x();
+            QRect geom = geometry();
+            int width = geom.width();
+            int x0 = (width - (cols * cellSize)) / 2;
 
-        int column = (x - x0) / cellSize;
-        if (column >= 0 && column < cols) {
-            int row;
-            if (dropDisc(column, row)) {
-                update();
-                if (currentPlayer == 2 && player2Name == "Maquina") {
-                    QTimer::singleShot(500, this, &GameBoard::machineMove);
-                } else if (checkWin(row, column)) {
-                    QString winnerName = (currentPlayer == 1) ? player1Name : player2Name;
-                    QString loserName = (currentPlayer == 1) ? player2Name : player1Name;
+            int column = (x - x0) / cellSize;
+            if (column >= 0 && column < cols) {
+                int row;
+                if (dropDisc(column, row)) {
+                    update();
+                    if (currentPlayer == 2 && player2Name == "Maquina") {
+                        QTimer::singleShot(500, this, &GameBoard::machineMove);
+                    } else if (checkWin(row, column)) {
+                        QString winnerName = (currentPlayer == 1) ? player1Name : player2Name;
+                        QString loserName = (currentPlayer == 1) ? player2Name : player1Name;
 
-                    // Recupera los objetos Player de la base de datos
-                    Player *winnerPlayer = Connect4::getInstance().getPlayer(winnerName);
-                    Player *loserPlayer = Connect4::getInstance().getPlayer(loserName);
-                    QMessageBox::information(this,
-                                             "Éxito",
-                                             QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints()));
-                    // Incrementa los puntos del ganador (por ejemplo, +10)
-                    if (winnerPlayer) {
-                        winnerPlayer->addPoints(40);
+                        // Recupera los objetos Player de la base de datos
+                        Player *winnerPlayer = Connect4::getInstance().getPlayer(winnerName);
+                        Player *loserPlayer = Connect4::getInstance().getPlayer(loserName);
                         QMessageBox::information(this,
                                                  "Éxito",
-                                                 QString("%1 PUNTOS.")
-                                                     .arg(winnerPlayer->getPoints()));
+                                                 QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints()));
+                        // Incrementa los puntos del ganador (por ejemplo, +10)
+                        if (winnerPlayer) {
+                            winnerPlayer->addPoints(40);
+                            QMessageBox::information(this,
+                                                     "Éxito",
+                                                     QString("%1 PUNTOS.")
+                                                         .arg(winnerPlayer->getPoints()));
 
-                        // Guarda la modificación en la base de datos
-                        // Se puede hacer con un método updatePlayer, según tu DAO
-                        //Connect4::getInstance().updatePlayer(*winnerPlayer);
+                            // Guarda la modificación en la base de datos
+                            // Se puede hacer con un método updatePlayer, según tu DAO
+                            //Connect4::getInstance().updatePlayer(*winnerPlayer);
+                        }
+
+                        // Registrar la partida (round) en la base de datos (opcional)
+                        Connect4::getInstance().registerRound(QDateTime::currentDateTime(),
+                                                              winnerPlayer,
+                                                              loserPlayer);
+
+                        QMessageBox::information(this,
+                                                 "Victoria",
+                                                 QString("¡Jugador %1 ha ganado!").arg(winnerName));
+
+                        return;
                     }
 
-                    // Registrar la partida (round) en la base de datos (opcional)
-                    Connect4::getInstance().registerRound(QDateTime::currentDateTime(),
-                                                          winnerPlayer,
-                                                          loserPlayer);
-
-                    QMessageBox::information(this,
-                                             "Victoria",
-                                             QString("¡Jugador %1 ha ganado!").arg(winnerName));
-
-                    return;
+                    // Cambiar de jugador
+                    switchPlayer();
+                } else {
+                    QMessageBox::warning(this,
+                                         "Columna Llena",
+                                         "La columna seleccionada está llena. Por favor, elige otra.");
                 }
-
-                // Cambiar de jugador
-                switchPlayer();
-            } else {
-                QMessageBox::warning(this,
-                                     "Columna Llena",
-                                     "La columna seleccionada está llena. Por favor, elige otra.");
             }
         }
     }
-
     // Turno automático de la máquina si es Jugador 2
     if (currentPlayer == 2 && player2Name == "Maquina") {
         QTimer::singleShot(500, this, &GameBoard::machineMove);
@@ -376,8 +400,10 @@ bool GameBoard::checkWin(int row, int col)
             c -= dir.second;
         }
 
-        if (count >= 4)
+        if (count >= 4){
+            gameOver = true;
             return true;
+        }
     }
 
     return false;
