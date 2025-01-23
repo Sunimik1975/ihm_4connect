@@ -49,6 +49,7 @@ void RegisterWindow::on_registerButton_clicked() {
     QIcon selectedIcon = QIcon(selectedIconPath);
     selectedAvatar = selectedIcon.pixmap(100, 100).toImage();
 
+    // Emitir la señal para registrar al jugador
     emit registerPlayer(nickName, email, password, birthdate, 0, selectedAvatar);
     this->hide();
 }

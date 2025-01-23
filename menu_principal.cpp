@@ -120,7 +120,7 @@ void Menu_principal::on_btnSinglePlayer_clicked() {
 // Esta función lanza el juego en modo Multiplayer
 void Menu_principal::on_btnMultiPlayer_clicked()
 {
-    // Crear la ventana principal para multiplayer
+   /* // Crear la ventana principal para multiplayer
     MainWindow *mainWindow = new MainWindow(this);
 
     // Indicar que el juego es en modo multiplayer
@@ -130,7 +130,28 @@ void Menu_principal::on_btnMultiPlayer_clicked()
     mainWindow->show();
 
     // Ocultar el menú principal
-    hide();
+    hide();*/
+
+    // Obtener la instancia de Connect4
+    Connect4& game = Connect4::getInstance();
+
+    // Confirmar con el usuario antes de borrar todos los datos
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Confirmación",
+                                  "¿Estás seguro de que quieres borrar todos los datos de la base de datos?",
+                                  QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        // Llamar a la función para borrar todos los datos
+        game.clearAllData();
+
+        // Mostrar mensaje de éxito
+        QMessageBox::information(this, "Datos borrados", "Todos los datos de la base de datos han sido eliminados.");
+    } else {
+        // Cancelación del borrado
+        QMessageBox::information(this, "Cancelado", "No se han eliminado los datos.");
+    }
+
 }
 
 

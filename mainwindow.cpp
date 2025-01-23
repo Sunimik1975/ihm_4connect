@@ -31,27 +31,35 @@ MainWindow::~MainWindow() {
 
 void MainWindow::openRegisterWindow() {
     RegisterWindow* registerWindow = new RegisterWindow();
-    qDebug() << "entra a la funcion on register  window.";
+    qDebug() << "Entrando en la función openRegisterWindow.";
 
-    // Conectar la señal de RegisterWindow a la función que maneja el registro de jugadores en Connect4
+    // Conectar la señal de RegisterWindow al registro de jugadores en Connect4
     bool connected = connect(registerWindow, &RegisterWindow::registerPlayer, this, [=](const QString& nickName, const QString& email,
                                                                                         const QString& password, const QDate& birthdate,
                                                                                         int points, const QImage& avatar) {
-        //qDebug() << "Conexión recibida en MainWindow";
-
-        // Llama a la función Connect4::registerPlayer
-        Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points,avatar);
-
+        // Llamar a la función Connect4::registerPlayer
+        if (!Connect4::getInstance().existsNickName(nickName)) {
+            Player* player = Connect4::getInstance().registerPlayer(nickName, email, password, birthdate, points, avatar);
+            if (player) {
+                qDebug() << "Jugador registrado exitosamente.";
+            } else {
+                qCritical() << "Error al registrar el jugador.";
+            }
+        } else {
+            qWarning() << "El nickname ya existe. No se puede registrar nuevamente.";
+        }
     });
+
     if (connected) {
         qDebug() << "Conexión establecida correctamente.";
     } else {
         qCritical() << "Error: No se pudo establecer la conexión.";
     }
+
     // Mostrar la ventana de registro
     registerWindow->show();
-    //registerWindow->deleteLater();
 }
+
 void MainWindow::setJugadorConectado(const QString& jugador) {
     QString jugadorConectado = jugador;
     activePlayers.append(jugadorConectado);
@@ -62,6 +70,7 @@ void MainWindow::setJugadorConectado(const QString& jugador) {
 
 // Método para cambiar el modo de juego (multiplayer o singleplayer)
 void MainWindow::setIsMultiplayer(bool multiplayer) {
+    qDebug() << "ESTAMOS EN MULTIPLAYER funcion";
     this->isMultiplayer = multiplayer;
 }
 
@@ -76,6 +85,7 @@ void MainWindow::login() {
         QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
 
         if (isMultiplayer) {
+            qDebug() << "ESTAMOS EN MULTIPLAYER funcion";
             // Verificar si ya hay 2 jugadores
             if (activePlayers.contains(nickName)) {
                 QMessageBox::information(this, "Aviso", "Ya has iniciado sesión.");
@@ -97,6 +107,7 @@ void MainWindow::login() {
                 QMessageBox::information(this, "Esperando jugador", "Esperando que otro jugador inicie sesión.");
             }
         } else {
+            qDebug() << "ESTAMOS EN Singleplayer";
             // Lógica para el modo singleplayer
             GameBoard* gameBoard = new GameBoard(nickName, "Maquina");
             gameBoard->show();
@@ -154,10 +165,3 @@ void MainWindow::Remember_contrasenya() {
     QString password = player->getPassword();
     QMessageBox::information(this, "Recuperación exitosa", QString("Tu contraseña es: %1").arg(password));
 }
-
-
-
-
-
-
-

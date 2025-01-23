@@ -144,7 +144,7 @@
       </spacer>
      </item>
      <item row="1" column="1" colspan="2">
-      <layout class="QHBoxLayout" name="tablajuego">
+      <layout class="QHBoxLayout" name="caca">
        <property name="topMargin">
         <number>20</number>
        </property>

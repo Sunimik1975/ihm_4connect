@@ -33,8 +33,8 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     boardWidget->setLayout(boardLayout);
 
     // Establecer `tablajuego` como contenedor
-    if (ui->tablajuego->layout()) {
-        QLayout *oldLayout = ui->tablajuego->layout();
+    if (ui->caca->layout()) {
+        QLayout *oldLayout = ui->caca->layout();
         QLayoutItem *item;
         while ((item = oldLayout->takeAt(0)) != nullptr) {
             delete item->widget();
@@ -93,12 +93,12 @@ void GameBoard::on_cerrarSesionButton_clicked() {
 
     if (button == ui->cerrarPushButton) {
         jugadorADesconectar = player1Name;
-        qDebug() << "Cerrar Sesión - Botón 1 presionado. Desconectando:" << player1Name;
+        QMessageBox::information(this, "Desconexión", jugadorADesconectar + " se ha desconectado.");
     } else if (button == ui->cerrarPushButton2) {
         jugadorADesconectar = player2Name;
-        qDebug() << "Cerrar Sesión - Botón 2 presionado. Desconectando:" << player2Name;
+        QMessageBox::information(this, "Desconexión", jugadorADesconectar + " se ha desconectado.");
     } else {
-        qDebug() << "Error: Botón desconocido.";
+        QMessageBox::warning(this, "Error", "Botón desconocido. No se puede desconectar.");
         return;
     }
 
@@ -178,8 +178,8 @@ void GameBoard::paintEvent(QPaintEvent *event)
     int x0 = (espacioJuego.width() - (cellSize * cols)) / 2;
     int y0 = (espacioJuego.height() - (cellSize * rows)) / 2;
 
-    // Dibujar la fondo
-    painter.setBrush(Qt::gray);
+    // Dibujar el fondo
+    painter.setBrush(Qt::black);
     painter.drawRect(x0, y0, cellSize * cols, cellSize * rows);
 
     // Dibujar celdas
@@ -382,7 +382,7 @@ bool GameBoard::checkWin(int row, int col)
 
     return false;
 }
-
+/*
 void GameBoard::showRanking()
 {
     rankingwindow *rankingWindow = new rankingwindow();
@@ -395,7 +395,7 @@ void GameBoard::showRounds()
     rounds *roundsDialog = new rounds(this); // Crea un diálogo de la clase rounds
     roundsDialog->show(); // Muestra el diálogo
 }
-
+*/
 
 void GameBoard::on_modifyProfilePlayer2Button_clicked() {
     Player* player2 = Connect4::getInstance().getPlayer(player2Name);

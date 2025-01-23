@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>392</width>
+    <height>340</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -168,14 +174,14 @@ color: rgb(0, 255, 255);</string>
          <widget class="QPushButton" name="loginButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>10</horstretch>
-            <verstretch>70</verstretch>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>90</height>
+            <height>60</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -282,7 +288,7 @@ color: rgb(0, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>392</width>
      <height>21</height>
     </rect>
    </property>

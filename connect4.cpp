@@ -50,7 +50,7 @@ Player* Connect4::registerPlayer(const QString& nickName, const QString& email,
         return nullptr;
     }
 
-    QImage finalAvatar = avatar.isNull() ? QImage(":/images/default.png") : avatar;
+    QImage finalAvatar = avatar.isNull() ? QImage(":/avatar/avatars/default.png") : avatar;
     Player* player = new Player(nickName, email, password, birthdate, points, finalAvatar);
 
     if (Connect4DAO::getInstance().addPlayer(*player)) {
