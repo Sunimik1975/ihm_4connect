@@ -14,15 +14,15 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="1">
-    <widget class="QPushButton" name="buscar_filtro">
+   <item row="2" column="1">
+    <widget class="QDateEdit" name="endDateEdit"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>todas las partidas</string>
+      <string>fin</string>
      </property>
     </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QDateEdit" name="startDateEdit"/>
    </item>
    <item row="5" column="1">
     <widget class="QPushButton" name="ganadas">
@@ -38,8 +38,12 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QDateEdit" name="endDateEdit"/>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Inicio</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="1">
     <widget class="QPushButton" name="jugador_tiempo">
@@ -48,19 +52,15 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="buscar_filtro">
      <property name="text">
-      <string>fin</string>
+      <string>todas las partidas</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Inicio</string>
-     </property>
-    </widget>
+   <item row="0" column="1">
+    <widget class="QDateEdit" name="startDateEdit"/>
    </item>
    <item row="7" column="0" colspan="2">
     <widget class="QTableView" name="tableView"/>

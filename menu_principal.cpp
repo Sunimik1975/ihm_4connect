@@ -8,6 +8,7 @@
 #include "Connect4DAO.h"
 #include <QApplication>
 #include <QPalette> // Para manejar colores en la aplicación
+#include "rounds.h"
 
 Menu_principal::Menu_principal(QWidget *parent)
     : QDialog(parent)
@@ -16,15 +17,69 @@ Menu_principal::Menu_principal(QWidget *parent)
 
 {
     ui->setupUi(this);
+    // Inicializar el modelo
+    rankingModel = new QStandardItemModel(this);
+
+    // Configurar las columnas del modelo
+    rankingModel->setColumnCount(3); // Dos columnas: Nombre y Puntos
+    rankingModel->setHorizontalHeaderLabels({"Jugador", "Puntos", "Avatar"});
+
+    // Asignar el modelo al QTableView ya existente en la UI
+    ui->rankingTableView->setModel(rankingModel);
+
+    // Ajustar las columnas al contenido
+    ui->rankingTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    // Cargar el ranking
+    loadRanking();
     // Conectar botones a las funciones correspondientes
     connect(ui->Singleplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnSinglePlayer_clicked);
     connect(ui->multiplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnMultiPlayer_clicked);
     connect(ui->fondo_oscuro, &QPushButton::clicked, this, &Menu_principal::on_btnHighContrast_clicked);
+    connect(ui->rondas, &QPushButton::clicked, this, &Menu_principal::showRounds);
+
 }
 
 Menu_principal::~Menu_principal()
 {
     delete ui;
+}
+
+void Menu_principal::loadRanking() {
+    // Obtener el ranking de los jugadores desde Connect4
+    QList<Player*> players = Connect4::getInstance().getRanking();
+
+    // Limpiar el modelo actual
+    rankingModel->removeRows(0, rankingModel->rowCount());
+
+    // Configurar las columnas del modelo
+    rankingModel->setColumnCount(3); // Tres columnas: Nombre, Puntos y Avatar
+    rankingModel->setHorizontalHeaderLabels({"Jugador", "Puntos", "Avatar"});
+
+    // Llenar la tabla con los datos
+    for (Player* player : players) {
+        QList<QStandardItem*> row;
+        row << new QStandardItem(player->getNickName());           // Nombre del jugador
+        row << new QStandardItem(QString::number(player->getPoints())); // Puntos del jugador
+
+        // Crear un item para el avatar
+        QStandardItem* avatarItem = new QStandardItem();
+        QPixmap avatarPixmap = QPixmap::fromImage(player->getAvatar()).scaled(50, 30, Qt::KeepAspectRatio);
+        avatarItem->setData(avatarPixmap, Qt::DecorationRole);
+        row << avatarItem;
+
+        rankingModel->appendRow(row);
+    }
+
+    // Ajustar las columnas al contenido
+    ui->rankingTableView->resizeColumnsToContents();
+    ui->rankingTableView->setColumnWidth(2, 50); // Ajustar el ancho de la columna del avatar
+    ui->rankingTableView->verticalHeader()->setDefaultSectionSize(30); // Ajustar la altura de las filas
+}
+void Menu_principal::showRounds()
+{
+    rounds *roundsDialog = new rounds(this); // Crea un diálogo de la clase rounds
+    roundsDialog->show(); // Muestra el diálogo
 }
 
 void Menu_principal::on_btnSinglePlayer_clicked() {
