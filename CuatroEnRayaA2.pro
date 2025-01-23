@@ -52,6 +52,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    avatars/default.png
+    avatars/chica.jpg \
+    avatars/default.png \
+    avatars/zorro.jpg
 
-RESOURCES +=
+RESOURCES += \
+    avatar.qrc

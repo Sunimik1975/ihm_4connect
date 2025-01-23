@@ -1,54 +1,54 @@
-// RegisterWindow.cpp
 #include "RegisterWindow.h"
 #include "ui_RegisterWindow.h"
-#include <QMessageBox>
 #include "Connect4.h"
+#include "iconcombobox.h"
 #include <QFileDialog>
 
 RegisterWindow::RegisterWindow(QWidget *parent) :
-    QDialog(parent),  // Cambiar QWidget a QDialog
+    QDialog(parent),
     ui(new Ui::RegisterWindow) {
     ui->setupUi(this);
 
-    // El botón 'registerPlayerButton' tiene un nombre, así que Qt generará el slot 'on_registerPlayerButton_clicked'
+    // Agregar íconos al IconComboBox
+    QList<QString> avatarPaths = {":/avatar/avatars/default.png", ":/avatar/avatars/chica.jpg", ":/avatar/avatars/zorro.jpg"};
+    for (const QString &path : avatarPaths) {
+        ui->avatarCombo->addIconItem(path); // Utiliza addIconItem para agregar íconos
+    }
+
+    ui->avatarCombo->setCurrentIndex(-1); // Seleccionar el primer avatar por defecto
+
     connect(ui->registerButton, &QPushButton::clicked, this, &RegisterWindow::on_registerButton_clicked);
-    connect(ui->avatarCombo, &QComboBox::currentIndexChanged, this, &RegisterWindow::on_selectAvatarButton_clicked);
 }
 
 RegisterWindow::~RegisterWindow() {
     delete ui;
 }
-// Función para seleccionar el avatar
+
+// Selección de avatar (actualizado para usar IconComboBox)
 void RegisterWindow::on_selectAvatarButton_clicked() {
-    QString fileName = QFileDialog::getOpenFileName(this, "Seleccionar Avatar", "", "Imágenes (*.png *.jpg *.jpeg)");
-
-    if (!fileName.isEmpty()) {
-        // Cargar la imagen seleccionada
-        selectedAvatar.load(fileName);
-
-        // Redimensionar la imagen para que se ajuste al QLabel
-        QPixmap avatarPixmap = QPixmap::fromImage(selectedAvatar).scaled(100, 100, Qt::KeepAspectRatio);
-
-        // Mostrar la imagen en la etiqueta
-        ui->avatarLabel->setPixmap(avatarPixmap);
-    }
+    QIcon selectedIcon = ui->avatarCombo->selectedIcon(); // Obtener ícono seleccionado
+    selectedAvatar = selectedIcon.pixmap(100, 100).toImage(); // Convertir a QImage para guardar
+    ui->avatarLabel->setPixmap(QPixmap::fromImage(selectedAvatar)); // Mostrar en el QLabel
 }
-// Asegúrate de que el nombre del slot coincida con la convención de Qt
+
 void RegisterWindow::on_registerButton_clicked() {
     QString nickName = ui->nicknameLineEdit->text();
     QString email = ui->emailLineEdit->text();
     QString password = ui->passwordLineEdit->text();
     QDate birthdate = ui->birthdateEdit->date();
-    QImage avatar;
 
     // Validar datos
     if (!Connect4::getInstance().validatePlayerData(nickName, email, password, birthdate)) {
-        // Detener si los datos no son válidos
         return;
     }
 
-    emit registerPlayer(nickName, email, password, birthdate, 0, avatar);
-    //qDebug() << "Señal emitida: registerPlayer(" << nickName << ", " << email << ", " << password << ", " << birthdate << ", " << points << ")";
+    // Obtener el path del ícono seleccionado del IconComboBox
+    QString selectedIconPath = ui->avatarCombo->selectedIconName(); // Obtener ruta completa del ícono seleccionado
 
+    // Convertir el ícono a QImage para guardar
+    QIcon selectedIcon = QIcon(selectedIconPath);
+    selectedAvatar = selectedIcon.pixmap(100, 100).toImage();
+
+    emit registerPlayer(nickName, email, password, birthdate, 0, selectedAvatar);
     this->hide();
 }

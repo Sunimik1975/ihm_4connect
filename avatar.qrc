@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/avatar">
+        <file>avatars/chica.jpg</file>
+        <file>avatars/default.png</file>
+        <file>avatars/zorro.jpg</file>
+    </qresource>
+</RCC>

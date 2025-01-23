@@ -32,6 +32,8 @@ private slots:
     void on_registerButton_clicked();
     void on_selectAvatarButton_clicked();
 
+public:
+    //void updateAvatarPreview();
 
 private:
     Ui::RegisterWindow *ui;
