@@ -11,8 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -30,20 +30,22 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
-    QGridLayout *gridLayout;
-    QVBoxLayout *verticalLayout;
-    QSpacerItem *verticalSpacer_2;
-    QSpacerItem *horizontalSpacer_3;
+    QGridLayout *gridLayout_3;
+    QSpacerItem *verticalSpacer_6;
     QSpacerItem *horizontalSpacer;
-    QFormLayout *formLayout;
-    QLabel *NickNameM;
-    QLineEdit *nicknameLineEditM;
-    QLabel *passwordM;
-    QLineEdit *passwordLineEditM;
-    QPushButton *registerButtonM;
-    QLabel *label;
     QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_2;
+    QLabel *registerLabel;
+    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *verticalSpacer_5;
     QPushButton *loginButton;
+    QSpacerItem *horizontalSpacer_3;
+    QLineEdit *nicknameLineEditM;
+    QSpacerItem *verticalSpacer_4;
+    QLineEdit *passwordLineEditM;
+    QSpacerItem *verticalSpacer_2;
+    QPushButton *nose_contra;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -56,87 +58,105 @@ public:
         centralwidget->setObjectName("centralwidget");
         verticalLayout_2 = new QVBoxLayout(centralwidget);
         verticalLayout_2->setObjectName("verticalLayout_2");
-        gridLayout = new QGridLayout();
-        gridLayout->setObjectName("gridLayout");
-        gridLayout->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName("verticalLayout");
+        gridLayout_3 = new QGridLayout();
+        gridLayout_3->setObjectName("gridLayout_3");
+        verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
-        gridLayout->addLayout(verticalLayout, 1, 1, 2, 1);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::MinimumExpanding);
-
-        gridLayout->addItem(verticalSpacer_2, 0, 0, 1, 6);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_3, 1, 0, 2, 1);
+        gridLayout_3->addItem(verticalSpacer_6, 1, 3, 1, 1);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 1, 5, 2, 1);
+        gridLayout_3->addItem(horizontalSpacer, 1, 4, 1, 1);
 
-        formLayout = new QFormLayout();
-        formLayout->setObjectName("formLayout");
-        formLayout->setContentsMargins(-1, -1, 10, -1);
-        NickNameM = new QLabel(centralwidget);
-        NickNameM->setObjectName("NickNameM");
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, NickNameM);
+        gridLayout_3->addItem(verticalSpacer, 0, 1, 1, 1);
 
-        nicknameLineEditM = new QLineEdit(centralwidget);
-        nicknameLineEditM->setObjectName("nicknameLineEditM");
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName("label_2");
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, nicknameLineEditM);
+        horizontalLayout_3->addWidget(label_2);
 
-        passwordM = new QLabel(centralwidget);
-        passwordM->setObjectName("passwordM");
-        QSizePolicy sizePolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(passwordM->sizePolicy().hasHeightForWidth());
-        passwordM->setSizePolicy(sizePolicy);
+        registerLabel = new QLabel(centralwidget);
+        registerLabel->setObjectName("registerLabel");
+        registerLabel->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
+        registerLabel->setStyleSheet(QString::fromUtf8("font: 9pt \"Segoe UI\";\n"
+"text-decoration: underline;\n"
+"color: rgb(0, 255, 255);"));
+        registerLabel->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, passwordM);
-
-        passwordLineEditM = new QLineEdit(centralwidget);
-        passwordLineEditM->setObjectName("passwordLineEditM");
-        sizePolicy.setHeightForWidth(passwordLineEditM->sizePolicy().hasHeightForWidth());
-        passwordLineEditM->setSizePolicy(sizePolicy);
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, passwordLineEditM);
-
-        registerButtonM = new QPushButton(centralwidget);
-        registerButtonM->setObjectName("registerButtonM");
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, registerButtonM);
-
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, label);
+        horizontalLayout_3->addWidget(registerLabel);
 
 
-        gridLayout->addLayout(formLayout, 1, 3, 2, 1);
+        gridLayout_3->addLayout(horizontalLayout_3, 5, 2, 1, 1);
 
-        verticalSpacer = new QSpacerItem(40, 60, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::MinimumExpanding);
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
-        gridLayout->addItem(verticalSpacer, 3, 0, 2, 6);
+        gridLayout_3->addItem(verticalSpacer_3, 2, 1, 1, 1);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer_5, 1, 1, 1, 1);
 
         loginButton = new QPushButton(centralwidget);
         loginButton->setObjectName("loginButton");
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(loginButton->sizePolicy().hasHeightForWidth());
+        loginButton->setSizePolicy(sizePolicy);
+        loginButton->setMinimumSize(QSize(0, 0));
+        loginButton->setMaximumSize(QSize(16777215, 60));
 
-        gridLayout->addWidget(loginButton, 1, 4, 2, 1);
+        gridLayout_3->addWidget(loginButton, 2, 2, 1, 1);
 
-        gridLayout->setRowStretch(0, 1);
-        gridLayout->setRowStretch(4, 1);
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        verticalLayout_2->addLayout(gridLayout);
+        gridLayout_3->addItem(horizontalSpacer_3, 1, 0, 1, 1);
+
+        nicknameLineEditM = new QLineEdit(centralwidget);
+        nicknameLineEditM->setObjectName("nicknameLineEditM");
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(nicknameLineEditM->sizePolicy().hasHeightForWidth());
+        nicknameLineEditM->setSizePolicy(sizePolicy1);
+        nicknameLineEditM->setMinimumSize(QSize(0, 0));
+        nicknameLineEditM->setMaximumSize(QSize(16777215, 60));
+
+        gridLayout_3->addWidget(nicknameLineEditM, 0, 2, 1, 1);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer_4, 2, 3, 1, 1);
+
+        passwordLineEditM = new QLineEdit(centralwidget);
+        passwordLineEditM->setObjectName("passwordLineEditM");
+        sizePolicy1.setHeightForWidth(passwordLineEditM->sizePolicy().hasHeightForWidth());
+        passwordLineEditM->setSizePolicy(sizePolicy1);
+        passwordLineEditM->setMinimumSize(QSize(0, 0));
+        passwordLineEditM->setMaximumSize(QSize(16777215, 60));
+
+        gridLayout_3->addWidget(passwordLineEditM, 1, 2, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer_2, 0, 3, 1, 1);
+
+        nose_contra = new QPushButton(centralwidget);
+        nose_contra->setObjectName("nose_contra");
+
+        gridLayout_3->addWidget(nose_contra, 3, 2, 1, 1);
+
+
+        verticalLayout_2->addLayout(gridLayout_3);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -150,11 +170,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        NickNameM->setText(QCoreApplication::translate("MainWindow", "Nickname:", nullptr));
-        passwordM->setText(QCoreApplication::translate("MainWindow", "Password:", nullptr));
-        registerButtonM->setText(QCoreApplication::translate("MainWindow", "Registrarse", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Si no tienes cuenta puedes", nullptr));
-        loginButton->setText(QCoreApplication::translate("MainWindow", "Iniciar sesi\303\263n", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Si no tienes cuenta puedes", nullptr));
+        registerLabel->setText(QCoreApplication::translate("MainWindow", "Registrarte", nullptr));
+        loginButton->setText(QCoreApplication::translate("MainWindow", "Iniciar Sesi\303\263n", nullptr));
+        nicknameLineEditM->setPlaceholderText(QCoreApplication::translate("MainWindow", "Nickname", nullptr));
+        passwordLineEditM->setPlaceholderText(QCoreApplication::translate("MainWindow", "Password", nullptr));
+        nose_contra->setText(QCoreApplication::translate("MainWindow", "No se contrase\303\261a", nullptr));
     } // retranslateUi
 
 };

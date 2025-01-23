@@ -33,16 +33,16 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSRankingWindowENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSRankingWindowENDCLASS = QtMocHelpers::stringData(
-    "RankingWindow"
+struct qt_meta_stringdata_CLASSrankingwindowENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSrankingwindowENDCLASS = QtMocHelpers::stringData(
+    "rankingwindow"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
 #endif // !QT_MOC_HAS_STRINGDATA
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSRankingWindowENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSrankingwindowENDCLASS[] = {
 
  // content:
       12,       // revision
@@ -58,20 +58,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSRankingWindowENDCLASS[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject RankingWindow::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_CLASSRankingWindowENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSRankingWindowENDCLASS,
+Q_CONSTINIT const QMetaObject rankingwindow::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_CLASSrankingwindowENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSrankingwindowENDCLASS,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSRankingWindowENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSrankingwindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<RankingWindow, std::true_type>
+        QtPrivate::TypeAndForceComplete<rankingwindow, std::true_type>
     >,
     nullptr
 } };
 
-void RankingWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void rankingwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -79,22 +79,22 @@ void RankingWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     (void)_a;
 }
 
-const QMetaObject *RankingWindow::metaObject() const
+const QMetaObject *rankingwindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *RankingWindow::qt_metacast(const char *_clname)
+void *rankingwindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSRankingWindowENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSrankingwindowENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QDialog::qt_metacast(_clname);
 }
 
-int RankingWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int rankingwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QDialog::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

@@ -289,7 +289,10 @@ Makefile: ../../CuatroEnRayaA2.pro C:/soft/Qt/6.7.2/mingw_64/mkspecs/win32-g++/q
 		C:/soft/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf \
 		C:/soft/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf \
 		../../CuatroEnRayaA2.pro \
+		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Charts.prl \
+		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6OpenGLWidgets.prl \
 		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl \
+		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl \
 		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl \
 		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Core.prl \
 		C:/soft/Qt/6.7.2/mingw_64/lib/Qt6EntryPoint.prl \
@@ -514,7 +517,10 @@ C:/soft/Qt/6.7.2/mingw_64/mkspecs/features/exceptions.prf:
 C:/soft/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf:
 C:/soft/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf:
 ../../CuatroEnRayaA2.pro:
+C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Charts.prl:
+C:/soft/Qt/6.7.2/mingw_64/lib/Qt6OpenGLWidgets.prl:
 C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl:
+C:/soft/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl:
 C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl:
 C:/soft/Qt/6.7.2/mingw_64/lib/Qt6Core.prl:
 C:/soft/Qt/6.7.2/mingw_64/lib/Qt6EntryPoint.prl:

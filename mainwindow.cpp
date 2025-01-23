@@ -1,4 +1,5 @@
 // MainWindow.cpp
+
 #include "mainwindow.h"
 #include "gameboard.h"
 #include "ui_mainwindow.h"
@@ -15,9 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //qDebug() << "entra a la funcion on mainwindow.";
     // Conectar el botón "Registrar jugador" a la función para abrir RegisterWindow
     // Conectar el botón de la interfaz al slot openRegisterWindow()
-    connect(ui->registerButtonM, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
+    //ui->registerLabel = new ClickableLabel(this);  // Crear la instancia manualmente
+
+    connect(ui->registerLabel, &QPushButton::clicked, this, &MainWindow::openRegisterWindow);
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::login);
-    connect(ui->nose_contra, &QPushButton::clicked, this, &MainWindow::Remember_contrasenya);
+    connect(ui->remember_password, &QPushButton::clicked, this, &MainWindow::Remember_contrasenya);
 
     //connect(ui->rankingButton, &QPushButton::clicked, this, &MainWindow::showRanking);  // Connect the ranking button
 }

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDate>
 #include <QDialog>
+#include "iconcombobox.h"
 
 
 namespace Ui {

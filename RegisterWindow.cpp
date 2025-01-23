@@ -12,8 +12,7 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
 
     // El botón 'registerPlayerButton' tiene un nombre, así que Qt generará el slot 'on_registerPlayerButton_clicked'
     connect(ui->registerButton, &QPushButton::clicked, this, &RegisterWindow::on_registerButton_clicked);
-    connect(ui->avatarButton, &QPushButton::clicked, this, &RegisterWindow::on_selectAvatarButton_clicked);
-    connect(ui->nosirve, &QPushButton::clicked, this, &RegisterWindow::on_selectAvatarButton_clicked);
+    connect(ui->avatarCombo, &QComboBox::currentIndexChanged, this, &RegisterWindow::on_selectAvatarButton_clicked);
 }
 
 RegisterWindow::~RegisterWindow() {
@@ -40,7 +39,6 @@ void RegisterWindow::on_registerButton_clicked() {
     QString email = ui->emailLineEdit->text();
     QString password = ui->passwordLineEdit->text();
     QDate birthdate = ui->birthdateEdit->date();
-    int points = ui->pointsSpinBox->value();
     QImage avatar;
 
     // Validar datos
@@ -49,12 +47,8 @@ void RegisterWindow::on_registerButton_clicked() {
         return;
     }
 
-    emit registerPlayer(nickName, email, password, birthdate, points, avatar);
+    emit registerPlayer(nickName, email, password, birthdate, 0, avatar);
     //qDebug() << "Señal emitida: registerPlayer(" << nickName << ", " << email << ", " << password << ", " << birthdate << ", " << points << ")";
 
     this->hide();
 }
-
-
-
-

@@ -18,6 +18,7 @@ SOURCES += \
     RegisterWindow.cpp \
     connect4.cpp \
     gameboard.cpp \
+    iconcombobox.cpp \
     main.cpp \
     mainwindow.cpp \
     menu_principal.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     RegisterWindow.h \
     connect4.h \
     gameboard.h \
+    iconcombobox.h \
     mainwindow.h \
     menu_principal.h \
     rankingwindow.h \

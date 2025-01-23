@@ -19,8 +19,8 @@ Menu_principal::Menu_principal(QWidget *parent)
     // Conectar botones a las funciones correspondientes
     connect(ui->Singleplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnSinglePlayer_clicked);
     connect(ui->multiplayer_button, &QPushButton::clicked, this, &Menu_principal::on_btnMultiPlayer_clicked);
-    connect(ui->fondo, &QPushButton::clicked, this, &Menu_principal::on_btnHighContrast_clicked);
-    }
+    connect(ui->fondo_oscuro, &QPushButton::clicked, this, &Menu_principal::on_btnHighContrast_clicked);
+}
 
 Menu_principal::~Menu_principal()
 {
