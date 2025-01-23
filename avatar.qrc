@@ -4,4 +4,8 @@
         <file>avatars/default.png</file>
         <file>avatars/zorro.jpg</file>
     </qresource>
+    <qresource prefix="/estilos">
+        <file>estilos.qss</file>
+        <file>normalStyle.qss</file>
+    </qresource>
 </RCC>

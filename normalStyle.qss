@@ -1,0 +1,42 @@
+/* Estilo general de la ventana */
+QMainWindow {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+/* Estilo para las cajas de texto (Nickname y Password) */
+QLineEdit {
+    background-color: #F0F0F0;
+    color: #000000;
+}
+
+/* Estilo para el botón principal (Iniciar Sesión) */
+QPushButton {
+    background-color: #F0F0F0;
+    color: #000000;
+}
+
+QPushButton:hover {
+    background-color: #E0E0E0;
+}
+
+QPushButton:pressed {
+    background-color: #D0D0D0;
+}
+
+/* Estilo para los botones planos (Contraseña y Regístrate) */
+QPushButton[flat="true"] {
+    background: transparent;
+    color: #0066CC; /* Color azul para el texto */
+    border: none;
+    text-decoration: none;
+}
+
+QPushButton[flat="true"]:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para etiquetas */
+QLabel {
+    color: #000000;
+}

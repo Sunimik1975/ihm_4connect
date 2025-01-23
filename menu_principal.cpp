@@ -158,6 +158,35 @@ void Menu_principal::on_btnMultiPlayer_clicked()
 
 void Menu_principal::on_btnHighContrast_clicked()
 {
+
+
+
+    if (highContrastEnabled) {
+        // Cambiar al modo normal (opcional, si tienes otro archivo .qss para modo normal)
+        QFile normalStyleFile(":/estilos/normalStyle.qss");
+        if (normalStyleFile.open(QFile::ReadOnly)) {
+            QString normalStyleSheet = QLatin1String(normalStyleFile.readAll());
+            qApp->setStyleSheet(normalStyleSheet);
+            normalStyleFile.close();
+        }
+        // Ya se aplica el estilo de alto contraste desde el archivo QSS
+        //QMessageBox::information(this, "Modo claro", "El modo claro se ha activado.");
+        highContrastEnabled = true;
+    } else {
+        // Cambiar al modo normal (opcional, si tienes otro archivo .qss para modo normal)
+        QFile normalStyleFile(":/estilos/estilos.qss");
+        if (normalStyleFile.open(QFile::ReadOnly)) {
+            QString normalStyleSheet = QLatin1String(normalStyleFile.readAll());
+            qApp->setStyleSheet(normalStyleSheet);
+            normalStyleFile.close();
+        }
+
+        //QMessageBox::information(this, "Modo oscuro", "El modo oscuro se ha activado.");
+        highContrastEnabled = false;
+
+    }
+}
+    /*
     if (highContrastEnabled) {
         // Cambiar al modo normal: Fondo blanco y estilo predeterminado
         QPalette lightPalette;
@@ -257,5 +286,4 @@ void Menu_principal::on_btnHighContrast_clicked()
 
         QMessageBox::information(this, "Modo Alto Contraste", "El modo de alto contraste se ha activado.");
         highContrastEnabled = true; // Actualizar el estado
-    }
-}
+    }*/
