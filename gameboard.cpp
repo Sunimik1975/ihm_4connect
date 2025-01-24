@@ -28,14 +28,12 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     , cols(7)
     , currentPlayer(1)
     , player1Name(player1)
-    , player2Name(player2)
-
+    , player2Name(player2)  // Configurar turno inicial
 
 {
-    gameOver = false;  // El juego no ha terminado al inicio
-
     ui->setupUi(this);
     // Crear el tablero dentro del layout de la UI
+    gameOver = false;  // El juego no ha terminado al inicio
 
 
 
@@ -193,8 +191,8 @@ void GameBoard::paintEvent(QPaintEvent *event) {
     // Elegir colores basados en isEnabled
     QColor fondoTablero, celdaVacia, jugador1, jugador2;
     if (isEnabled) {
-        fondoTablero = QColor(15, 23, 42); // Azul oscuro
-        celdaVacia = QColor(0, 5, 25);    // Azul más oscuro (celdas vacías)
+        fondoTablero = QColor(40, 40, 40); // Gris oscuro para el fondo del tablero
+        celdaVacia = QColor(30, 30, 30);   // Gris más oscuro para celdas vacías
         jugador1 = QColor(236, 72, 85);   // Rojo
         jugador2 = QColor(34, 197, 189);  // Verde azulado
     } else {
@@ -272,6 +270,7 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
                 int row;
                 if (dropDisc(column, row)) {
                     update();
+
                     if (currentPlayer == 2 && player2Name == "Maquina") {
                         QTimer::singleShot(500, this, &GameBoard::machineMove);
                     } else if (checkWin(row, column)) {
@@ -325,14 +324,39 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
         QTimer::singleShot(500, this, &GameBoard::machineMove);
     }
 }
+void GameBoard::updateTurnDisplay() {
+    // Cambiar los colores según el jugador actual
+    if (currentPlayer == 1) {
+        ui->label_player1_name->setStyleSheet("color: black;");  // Color para jugador 1
+        ui->label_player2_name->setStyleSheet("color: red;");    // Color para jugador 2
+    } else if (currentPlayer == 2) {
+        ui->label_player2_name->setStyleSheet("color: black;");  // Color para jugador 2
+        ui->label_player1_name->setStyleSheet("color: blue;");   // Color para jugador 1
+    }
+}
 
 void GameBoard::switchPlayer()
 {
     currentPlayer = (currentPlayer == 1) ? 2 : 1;
     QString nextPlayerName = (currentPlayer == 1) ? player1Name : player2Name;
-    qDebug() << "Turno de" << nextPlayerName;
+
+    // Cambiar los colores de las etiquetas según el jugador actual
+    if (nextPlayerName == player2Name) {
+        ui->label_player1_name->setStyleSheet("color: black;");  // Color para jugador 1
+        ui->label_player2_name->setStyleSheet("color: blue;");    // Color para jugador 2
+    } else if (nextPlayerName == player1Name) {
+        ui->label_player2_name->setStyleSheet("color: black;");  // Color para jugador 2
+        ui->label_player1_name->setStyleSheet("color: red;");   // Color para jugador 1
+    }
+
     // Actualiza las etiquetas con la información más reciente de los jugadores
     updatePlayerLabels();
+
+    qDebug() << "Turno de" << nextPlayerName;
+
+    // Llamar a la función que actualiza el turno en la interfaz si es necesario
+    // updateTurnDisplay();
+
 }
 
 void GameBoard::machineMove()

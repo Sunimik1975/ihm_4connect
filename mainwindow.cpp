@@ -85,6 +85,10 @@ void MainWindow::login() {
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
         //QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
 
+        // Limpiar los campos de texto después del login exitoso
+        ui->nicknameLineEditM->clear();
+        ui->passwordLineEditM->clear();
+
         if (isMultiplayer) {
             qDebug() << "ESTAMOS EN MULTIPLAYER funcion";
             // Verificar si ya hay 2 jugadores
@@ -119,6 +123,7 @@ void MainWindow::login() {
         QMessageBox::warning(this, "Error", "El nombre de usuario o la contraseña son incorrectos.");
     }
 }
+
 
 
 #include <QInputDialog>
