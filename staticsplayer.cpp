@@ -24,6 +24,8 @@
 #include "ui_rounds.h"
 #include "ui_staticsplayer.h"
 
+//Se ha utilizado la ayuda de inteligencia artificial para la realización de este código
+
 StaticsPlayer::StaticsPlayer(const QString& playerName,
                              const QMap<QDate, int>& winsPerDay,
                              const QMap<QDate, int>& lossesPerDay,

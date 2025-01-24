@@ -24,6 +24,7 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QChart>
 
+//Se ha utilizado la ayuda de inteligencia artificial para la realización de este código
 
 rounds::rounds(QWidget *parent) :
     QDialog(parent),

@@ -324,30 +324,34 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
         QTimer::singleShot(500, this, &GameBoard::machineMove);
     }
 }
-void GameBoard::updateTurnDisplay() {
-    // Cambiar los colores según el jugador actual
-    if (currentPlayer == 1) {
-        ui->label_player1_name->setStyleSheet("color: black;");  // Color para jugador 1
-        ui->label_player2_name->setStyleSheet("color: red;");    // Color para jugador 2
-    } else if (currentPlayer == 2) {
-        ui->label_player2_name->setStyleSheet("color: black;");  // Color para jugador 2
-        ui->label_player1_name->setStyleSheet("color: blue;");   // Color para jugador 1
-    }
-}
+
 
 void GameBoard::switchPlayer()
 {
     currentPlayer = (currentPlayer == 1) ? 2 : 1;
     QString nextPlayerName = (currentPlayer == 1) ? player1Name : player2Name;
 
-    // Cambiar los colores de las etiquetas según el jugador actual
-    if (nextPlayerName == player2Name) {
-        ui->label_player1_name->setStyleSheet("color: black;");  // Color para jugador 1
-        ui->label_player2_name->setStyleSheet("color: blue;");    // Color para jugador 2
-    } else if (nextPlayerName == player1Name) {
-        ui->label_player2_name->setStyleSheet("color: black;");  // Color para jugador 2
-        ui->label_player1_name->setStyleSheet("color: red;");   // Color para jugador 1
+    bool isEnabled = Menu_principal::isHighContrastEnabled(); // Consultar estado
+    if(isEnabled){
+        if (nextPlayerName == player2Name) {
+            ui->label_player1_name->setStyleSheet(isEnabled ? "color: white;" : "color: black;"); // Blanco si enabled, negro si no
+            ui->label_player2_name->setStyleSheet("color: blue;");  // Color para jugador 2
+        } else if (nextPlayerName == player1Name) {
+            ui->label_player2_name->setStyleSheet(isEnabled ? "color: white;" : "color: black;"); // Blanco si enabled, negro si no
+            ui->label_player1_name->setStyleSheet("color: red;");   // Color para jugador 1
+        }
+    }else{
+        // Cambiar los colores de las etiquetas según el jugador actual
+        if (nextPlayerName == player2Name) {
+            ui->label_player1_name->setStyleSheet("color: black;");  // Color para jugador 1
+            ui->label_player2_name->setStyleSheet("color: blue;");    // Color para jugador 2
+        } else if (nextPlayerName == player1Name) {
+            ui->label_player2_name->setStyleSheet("color: black;");  // Color para jugador 2
+            ui->label_player1_name->setStyleSheet("color: red;");   // Color para jugador 1
+        }
     }
+
+
 
     // Actualiza las etiquetas con la información más reciente de los jugadores
     updatePlayerLabels();

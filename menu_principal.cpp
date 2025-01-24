@@ -10,6 +10,8 @@
 #include <QPalette> // Para manejar colores en la aplicación
 #include "rounds.h"
 
+//Se ha utilizado la ayuda de inteligencia artificial para la realización de este código
+
 Menu_principal::Menu_principal(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Menu_principal)

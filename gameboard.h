@@ -24,7 +24,6 @@ public:
     void loadRanking();
     void resetGame();
     void cellWidthHeight (int &cellWidth, int &cellHeight);
-    void updateTurnDisplay();
 
 
 public slots:
