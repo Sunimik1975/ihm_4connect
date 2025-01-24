@@ -17,6 +17,17 @@ Menu_principal::Menu_principal(QWidget *parent)
 
 {
     ui->setupUi(this);
+    setFixedSize(this->size()); // Fija el tamaño actual de la ventana
+    // Cambiar al modo normal (opcional, si tienes otro archivo .qss para modo normal)
+    QFile normalStyleFile(":/estilos/normalStyle.qss");
+    if (normalStyleFile.open(QFile::ReadOnly)) {
+        QString normalStyleSheet = QLatin1String(normalStyleFile.readAll());
+        qApp->setStyleSheet(normalStyleSheet);
+        normalStyleFile.close();
+    }
+    // Ya se aplica el estilo de alto contraste desde el archivo QSS
+    //QMessageBox::information(this, "Modo claro", "El modo claro se ha activado.");
+    highContrastEnabled = false;
     // Inicializar el modelo
     rankingModel = new QStandardItemModel(this);
 

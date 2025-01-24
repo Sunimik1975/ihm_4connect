@@ -28,7 +28,7 @@ RegisterWindow::~RegisterWindow() {
 void RegisterWindow::on_selectAvatarButton_clicked() {
     QIcon selectedIcon = ui->avatarCombo->selectedIcon(); // Obtener ícono seleccionado
     selectedAvatar = selectedIcon.pixmap(100, 100).toImage(); // Convertir a QImage para guardar
-    ui->avatarLabel->setPixmap(QPixmap::fromImage(selectedAvatar)); // Mostrar en el QLabel
+    //ui->avatarLabel->setPixmap(QPixmap::fromImage(selectedAvatar)); // Mostrar en el QLabel
 }
 
 void RegisterWindow::on_registerButton_clicked() {

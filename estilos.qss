@@ -111,32 +111,76 @@ QScrollBar::handle:hover {
 QScrollBar::add-line, QScrollBar::sub-line {
     background-color: #2D2D2D;
 }
-/* Ventana de error */
-QMessageBox {
-    background-color: #2D2D2D; /* Fondo gris oscuro */
+/* Botones específicos de Singleplayer y Multiplayer */
+#Singleplayer_button, #multiplayer_button, #loginButton {
+    background-color: #34699A; /* Azul oscuro suave */
     color: white;              /* Texto blanco */
-    border: 1px solid #555555; /* Bordes grises */
-    border-radius: 10px;       /* Esquinas redondeadas opcionales */
-}
-
-/* Etiqueta de texto en QMessageBox */
-QMessageBox QLabel {
-    color: white; /* Texto blanco */
-}
-
-/* Botones en QMessageBox */
-QMessageBox QPushButton {
-    background-color: #505050; /* Fondo oscuro */
-    color: white;              /* Texto blanco */
-    border: 1px solid #777777; /* Bordes más claros */
-    padding: 5px;
+    border: 1px solid #2B5780; /* Borde ligeramente más oscuro */
     border-radius: 5px;
+    padding: 8px 15px;         /* Ajuste de tamaño */
+    font-weight: bold;
 }
 
-QMessageBox QPushButton:hover {
-    background-color: #606060; /* Fondo más claro al pasar el mouse */
+#Singleplayer_button:hover, #multiplayer_button:hover , #loginButton:hover{
+    background-color: #2B5780; /* Azul más oscuro al pasar el ratón */
 }
 
-QMessageBox QPushButton:pressed {
-    background-color: #404040; /* Fondo más oscuro al presionar */
+#Singleplayer_button:pressed, #multiplayer_button:pressed, #loginButton:pressed {
+    background-color: #1E405D; /* Azul muy oscuro al presionar */
 }
+
+/* Botones "Cerrar" (cerrarPushButton y cerrarPushButton2) */
+#cerrarPushButton, #cerrarPushButton2 {
+    background-color: #D64545; /* Rojo apagado */
+    color: white;             /* Texto blanco */
+    border: 1px solid #B03A3A; /* Borde más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#cerrarPushButton:hover, #cerrarPushButton2:hover {
+    background-color: #B03A3A; /* Rojo más oscuro al pasar el ratón */
+}
+
+#cerrarPushButton:pressed, #cerrarPushButton2:pressed {
+    background-color: #8A2D2D; /* Rojo aún más oscuro al presionar */
+}
+
+/* Botones "Modificar Perfil" (modifyProfileButton y modifyProfileButton2) */
+#modifyProfileButton1, #modifyProfileButton2 {
+    background-color: #34699A; /* Azul oscuro suave */
+    color: white;
+    border: 1px solid #2B5780; /* Borde más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#modifyProfileButton1:hover, #modifyProfileButton2:hover {
+    background-color: #2B5780; /* Azul más intenso al pasar el ratón */
+}
+
+#modifyProfileButton1:pressed, #modifyProfileButton2:pressed {
+    background-color: #1E405D; /* Azul profundo al presionar */
+}
+
+/* Botón "Reset" */
+#reset {
+    background-color: #44A673; /* Verde suave */
+    color: white;
+    border: 1px solid #358B5B; /* Borde verde más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#reset:hover {
+    background-color: #358B5B; /* Verde más oscuro al pasar el ratón */
+}
+
+#reset:pressed {
+    background-color: #256646; /* Verde intenso al presionar */
+}
+
+

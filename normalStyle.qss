@@ -40,3 +40,87 @@ QPushButton[flat="true"]:hover {
 QLabel {
     color: #000000;
 }
+
+/* Botones específicos de Singleplayer y Multiplayer */
+#Singleplayer_button, #multiplayer_button, #loginButton {
+    background-color: #4EA1FF; /* Azul suave */
+    color: white;              /* Texto blanco */
+    border: 1px solid #3C81D6; /* Borde más oscuro */
+    border-radius: 5px;
+    padding: 8px 15px;         /* Ajuste de tamaño */
+    font-weight: bold;         /* Resaltar texto */
+}
+
+#Singleplayer_button:hover, #multiplayer_button:hover , #loginButton:hover{
+    background-color: #3C81D6; /* Azul más oscuro al pasar el ratón */
+}
+
+#Singleplayer_button:pressed, #multiplayer_button:pressed, #loginButton:pressed {
+    background-color: #2C6BB2; /* Azul aún más oscuro al presionar */
+}
+
+/* Botones "Cerrar" (cerrarPushButton y cerrarPushButton2) */
+#cerrarPushButton, #cerrarPushButton2 {
+    background-color: #F28C8C; /* Rojo claro */
+    color: black;             /* Texto negro */
+    border: 1px solid #D17272; /* Borde ligeramente más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#cerrarPushButton:hover, #cerrarPushButton2:hover {
+    background-color: #D17272; /* Rojo más intenso al pasar el ratón */
+}
+
+#cerrarPushButton:pressed, #cerrarPushButton2:pressed {
+    background-color: #B05A5A; /* Rojo oscuro al presionar */
+}
+
+/* Botones "Modificar Perfil" (modifyProfileButton1 y modifyProfileButton2) */
+#modifyProfileButton1, #modifyProfileButton2 {
+    background-color: #A0CBEF; /* Azul claro */
+    color: black;              /* Texto negro */
+    border: 1px solid #7DAFD7; /* Borde más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#modifyProfileButton1:hover, #modifyProfileButton2:hover {
+    background-color: #7DAFD7; /* Azul más intenso al pasar el ratón */
+}
+
+#modifyProfileButton1:pressed, #modifyProfileButton2:pressed {
+    background-color: #5C8CAF; /* Azul profundo al presionar */
+}
+
+/* Botón "Reset" */
+#reset {
+    background-color: #A9E5C1; /* Verde claro */
+    color: black;             /* Texto negro */
+    border: 1px solid #86C7A3; /* Borde más oscuro */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#reset:hover {
+    background-color: #86C7A3; /* Verde más oscuro al pasar el ratón */
+}
+
+#reset:pressed {
+    background-color: #6AA88A; /* Verde intenso al presionar */
+}
+#remember_password {
+    font: 9pt "Segoe UI";
+    text-decoration: underline;
+    color: #1A355B;
+}
+
+#registerLabel {
+    font: 9pt "Segoe UI";
+    text-decoration: underline;
+    color: #1A355B;
+}
+

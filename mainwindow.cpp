@@ -1,5 +1,3 @@
-// MainWindow.cpp
-
 #include "mainwindow.h"
 #include "gameboard.h"
 #include "ui_mainwindow.h"
@@ -12,7 +10,10 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
+
     ui->setupUi(this);
+    setFixedSize(this->size()); // Fija el tamaño actual de la ventana
+
     //qDebug() << "entra a la funcion on mainwindow.";
     // Conectar el botón "Registrar jugador" a la función para abrir RegisterWindow
     // Conectar el botón de la interfaz al slot openRegisterWindow()
@@ -82,13 +83,13 @@ void MainWindow::login() {
 
     // Validar los datos del jugador
     if (Connect4::getInstance().loginPlayer(nickName, passwordM)) {
-        QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
+        //QMessageBox::information(this, "Éxito", QString("%1 ha iniciado sesión.").arg(nickName));
 
         if (isMultiplayer) {
             qDebug() << "ESTAMOS EN MULTIPLAYER funcion";
             // Verificar si ya hay 2 jugadores
             if (activePlayers.contains(nickName)) {
-                QMessageBox::information(this, "Aviso", "Ya has iniciado sesión.");
+                //QMessageBox::information(this, "Aviso", "Ya has iniciado sesión.");
                 return;
             }
 

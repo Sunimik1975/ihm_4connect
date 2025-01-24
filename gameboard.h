@@ -23,6 +23,7 @@ public:
     void switchPlayer();
     void loadRanking();
     void resetGame();
+    void cellWidthHeight (int &cellWidth, int &cellHeight);
 
 
 public slots:
@@ -31,6 +32,7 @@ public slots:
     //void showRounds();
     void on_modifyProfilePlayer1Button_clicked();
     void updatePlayerLabels();
+
 
 
 protected:

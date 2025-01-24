@@ -35,6 +35,7 @@ StaticsPlayer::StaticsPlayer(const QString& playerName,
     ui(new Ui::StaticsPlayer)
 {
     ui->setupUi(this);
+    this->resize(820,900);
 
     // Crear layouts para las gráficas
     QVBoxLayout* barChartLayout = new QVBoxLayout();

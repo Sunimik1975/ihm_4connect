@@ -16,6 +16,8 @@
 #include <QThread>
 #include <QVBoxLayout>
 #include <QtMath>
+#include "iconcombobox.h"
+#include "ui_mainwindow.h"
 
 GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *parent)
     : QWidget(parent)
@@ -31,20 +33,9 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
 
     ui->setupUi(this);
     // Crear el tablero dentro del layout de la UI
-    QWidget *boardWidget = new QWidget(this);
-    QVBoxLayout *boardLayout = new QVBoxLayout(boardWidget);
-    boardWidget->setLayout(boardLayout);
 
-    // Establecer `tablajuego` como contenedor
-    if (ui->tablajuego->layout()) {
-        QLayout *oldLayout = ui->tablajuego->layout();
-        QLayoutItem *item;
-        while ((item = oldLayout->takeAt(0)) != nullptr) {
-            delete item->widget();
-            delete item;
-        }
-        delete oldLayout;
-    }
+
+
     grid.resize(rows, QVector<int>(cols, 0));
     setMinimumSize(cols * 40, rows * 40);
 
@@ -164,27 +155,35 @@ void GameBoard::actualizarJugadores(const QString &jugador1, const QString &juga
 
     qDebug() << "Jugadores actualizados: " << player1Name << " y " << player2Name;
 }
+void GameBoard::cellWidthHeight(int &cellWidth, int &cellHeight) {
+    QRect espacioJuego = geometry();
+    int controlHeight = ui->modifyProfileButton1->height() + ui->reset->height() + 80; // Altura de controles + margen
+    int drawAreaHeight = espacioJuego.height() - controlHeight;
+    int drawAreaWidth = espacioJuego.width();
 
-void GameBoard::paintEvent(QPaintEvent *event)
-{
+    // Calcular el tamaño de cada celda
+    cellWidth = drawAreaWidth / cols;
+    cellHeight = drawAreaHeight / rows;
+}
+
+void GameBoard::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    // a las posiciones (x,y) de cualquier punto se le suman la posicion (x0,y0) donde se pinta el centralQWidget sobre MainWindow
     QRect espacioJuego = geometry();
+    int cellWidth, cellHeight;
+    cellWidthHeight(cellWidth, cellHeight);
 
-    // calcula el tamaño de la celda
-    if (espacioJuego.width() / cols < espacioJuego.height() / rows) {
-        cellSize = espacioJuego.width() / cols;
-    } else {
-        cellSize = espacioJuego.height() / rows;
-    }
+    // Elegir el tamaño uniforme de la celda
+    cellSize = qMin(cellWidth, cellHeight);
+
+    // Coordenadas iniciales para centrar el tablero
     int x0 = (espacioJuego.width() - (cellSize * cols)) / 2;
     int y0 = (espacioJuego.height() - (cellSize * rows)) / 2;
 
-    // Dibujar el fondo
-    painter.setBrush(Qt::black);
+    // Dibujar el fondo del tablero
+    painter.setBrush(QColor(245, 245, 245)); // Blanco grisáceo (fondo claro)
     painter.drawRect(x0, y0, cellSize * cols, cellSize * rows);
 
     // Dibujar celdas
@@ -195,20 +194,27 @@ void GameBoard::paintEvent(QPaintEvent *event)
                               cellSize - 10,
                               cellSize - 10);
 
-            // Dependiendo del valor de grid[r][c], dibujamos el círculo correspondiente
+            // Colores basados en el estado de la celda
             if (grid[r][c] == 0) {
-                painter.setBrush(Qt::white); // Celda vacía
+                painter.setBrush(QColor(220, 220, 220)); // Gris claro (celdas vacías)
             } else if (grid[r][c] == 1) {
-                qDebug() << "pinto rojo";
-                painter.setBrush(Qt::red); // Jugador 1
+                painter.setBrush(QColor(220, 38, 38)); // Rojo intenso (Jugador 1)
+                painter.drawEllipse(circleRect);
+                // Añadir un punto blanco en el centro del círculo rojo
+                painter.setBrush(Qt::white);
+                QRectF centerPoint(circleRect.center().x() - 2,
+                                   circleRect.center().y() - 2,
+                                   4, 4);
+                painter.drawEllipse(centerPoint);
+                continue;
             } else if (grid[r][c] == 2) {
-                qDebug() << "pinto amarillo";
-                painter.setBrush(Qt::yellow); // Jugador 2
+                painter.setBrush(QColor(6, 182, 212)); // Azul brillante (Jugador 2)
             }
             painter.drawEllipse(circleRect);
         }
     }
 }
+
 
 void GameBoard::resetGame() {
     // Restaura el estado del juego
@@ -252,9 +258,10 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
                         // Recupera los objetos Player de la base de datos
                         Player *winnerPlayer = Connect4::getInstance().getPlayer(winnerName);
                         Player *loserPlayer = Connect4::getInstance().getPlayer(loserName);
-                        QMessageBox::information(this,
+
+                        /*QMessageBox::information(this,
                                                  "Éxito",
-                                                 QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints()));
+                                                 QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints());*/
                         // Incrementa los puntos del ganador (por ejemplo, +10)
                         if (winnerPlayer) {
                             winnerPlayer->addPoints(40);
@@ -283,9 +290,9 @@ void GameBoard::mousePressEvent(QMouseEvent *event)
                     // Cambiar de jugador
                     switchPlayer();
                 } else {
-                    QMessageBox::warning(this,
+                    /*QMessageBox::warning(this,
                                          "Columna Llena",
-                                         "La columna seleccionada está llena. Por favor, elige otra.");
+                                         "La columna seleccionada está llena. Por favor, elige otra.");*/
                 }
             }
         }
@@ -324,9 +331,9 @@ void GameBoard::machineMove()
             // Recupera los objetos Player de la base de datos
             Player *winnerPlayer = Connect4::getInstance().getPlayer(winnerName);
             Player *loserPlayer = Connect4::getInstance().getPlayer(loserName);
-            QMessageBox::information(this,
+            /*QMessageBox::information(this,
                                      "Éxito",
-                                     QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints()));
+                                     QString("%1 PUUUUNTOS.").arg(winnerPlayer->getPoints()));*/
             // Incrementa los puntos del ganador (por ejemplo, +10)
             if (winnerPlayer) {
                 winnerPlayer->addPoints(2);
@@ -450,7 +457,7 @@ void GameBoard::on_modifyProfilePlayer2Button_clicked() {
 
         // Persistir cambios en la base de datos
         player2->updateDatabase();
-        QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
+        //QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
     });
 
     registerWindow->show();
@@ -470,7 +477,12 @@ void GameBoard::on_modifyProfilePlayer1Button_clicked() {
     ui->nicknameLineEdit->setText(player1->getNickName());
     ui->emailLineEdit->setText(player1->getEmail());
     ui->birthdateEdit->setDate(player1->getBirthdate());
-    ui->avatarLabel->setPixmap(QPixmap::fromImage(player1->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio));
+
+    QIcon selectedIcon = ui->avatarCombo->selectedIcon(); // Obtener ícono seleccionado
+    //selectedAvatar = selectedIcon.pixmap(100, 100).toImage(); // Convertir a QImage para guardar
+    //ui->avatarCombo->setPixmap(QPixmap::fromImage(player1->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio)); // Mostrar en el QLabel
+
+    //ui->avatarLabel->setPixmap(QPixmap::fromImage(player1->getAvatar()).scaled(100, 100, Qt::KeepAspectRatio));
 
     // Deshabilitar edición del nickname
     ui->nicknameLineEdit->setEnabled(false);
@@ -484,7 +496,7 @@ void GameBoard::on_modifyProfilePlayer1Button_clicked() {
 
         // Persistir cambios en la base de datos
         player1->updateDatabase();
-        QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
+        //QMessageBox::information(this, "Perfil Actualizado", "Los datos del jugador 2 se han actualizado correctamente.");
     });
     updatePlayerLabels();
     registerWindow->show();

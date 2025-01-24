@@ -61,7 +61,7 @@ rounds::rounds(QWidget *parent) :
     //ganadas/perdidas
     connect(ui->ganadas, &QPushButton::clicked, this, &rounds::filterRoundsByDateAndWins);
     connect(ui->perdidas, &QPushButton::clicked, this, &rounds::filterRoundsByDateAndLoses);
-    //connect(ui->graficas, &QPushButton::clicked, this, &rounds::openStatisticsWindow);
+    connect(ui->graficas, &QPushButton::clicked, this, &rounds::showPlayerStatsByDate);
 
 }
 
