@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
 
     // Crear y mostrar el menú principal
     Menu_principal w;
-    w.setWindowTitle("Entrega 4 en raya Grupo 2");
+    //w.setWindowTitle("Entrega 4 en raya Grupo 2");
     w.show();
 
     return a.exec();

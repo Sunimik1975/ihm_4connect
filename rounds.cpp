@@ -31,6 +31,7 @@ rounds::rounds(QWidget *parent) :
     model(new QStandardItemModel(this))
 {
     ui->setupUi(this);
+    setFixedSize(this->size()); // Fija el tamaño actual de la ventana
 
     /* Configuración inicial de la tabla
     model->setColumnCount(3);

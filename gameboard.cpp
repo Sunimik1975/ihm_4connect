@@ -2,6 +2,7 @@
 //#include "build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/ui_gameboard.h"
 #include "connect4.h"
 #include "mainwindow.h"
+#include "menu_principal.h"
 #include "rankingwindow.h"
 #include "RegisterWindow.h"
 #include "rounds.h"
@@ -19,6 +20,7 @@
 #include "iconcombobox.h"
 #include "ui_mainwindow.h"
 
+
 GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::GameBoard)
@@ -27,6 +29,7 @@ GameBoard::GameBoard(const QString &player1, const QString &player2, QWidget *pa
     , currentPlayer(1)
     , player1Name(player1)
     , player2Name(player2)
+
 
 {
     gameOver = false;  // El juego no ha terminado al inicio
@@ -157,7 +160,7 @@ void GameBoard::actualizarJugadores(const QString &jugador1, const QString &juga
 }
 void GameBoard::cellWidthHeight(int &cellWidth, int &cellHeight) {
     QRect espacioJuego = geometry();
-    int controlHeight = ui->modifyProfileButton1->height() + ui->reset->height() + 80; // Altura de controles + margen
+    int controlHeight = ui->modifyProfileButton1->height() + ui->reset->height() +60; // Altura de controles + margen
     int drawAreaHeight = espacioJuego.height() - controlHeight;
     int drawAreaWidth = espacioJuego.width();
 
@@ -181,9 +184,28 @@ void GameBoard::paintEvent(QPaintEvent *event) {
     // Coordenadas iniciales para centrar el tablero
     int x0 = (espacioJuego.width() - (cellSize * cols)) / 2;
     int y0 = (espacioJuego.height() - (cellSize * rows)) / 2;
+    //Menu_principal menu;
+    //bool isEnabled = Menu_principal::isHighContrastEnabled();
+    //Menu_principal::setHighContrastEnabled(true); // Activar alto contraste
+    bool isEnabled = Menu_principal::isHighContrastEnabled(); // Consultar estado
+
+    qDebug() << "oscuro" << isEnabled;
+    // Elegir colores basados en isEnabled
+    QColor fondoTablero, celdaVacia, jugador1, jugador2;
+    if (isEnabled) {
+        fondoTablero = QColor(15, 23, 42); // Azul oscuro
+        celdaVacia = QColor(0, 5, 25);    // Azul más oscuro (celdas vacías)
+        jugador1 = QColor(236, 72, 85);   // Rojo
+        jugador2 = QColor(34, 197, 189);  // Verde azulado
+    } else {
+        fondoTablero = QColor(245, 245, 245); // Blanco grisáceo
+        celdaVacia = QColor(220, 220, 220);   // Gris claro
+        jugador1 = QColor(220, 38, 38);       // Rojo intenso
+        jugador2 = QColor(6, 182, 212);       // Azul brillante
+    }
 
     // Dibujar el fondo del tablero
-    painter.setBrush(QColor(245, 245, 245)); // Blanco grisáceo (fondo claro)
+    painter.setBrush(fondoTablero);
     painter.drawRect(x0, y0, cellSize * cols, cellSize * rows);
 
     // Dibujar celdas
@@ -196,9 +218,9 @@ void GameBoard::paintEvent(QPaintEvent *event) {
 
             // Colores basados en el estado de la celda
             if (grid[r][c] == 0) {
-                painter.setBrush(QColor(220, 220, 220)); // Gris claro (celdas vacías)
+                painter.setBrush(celdaVacia); // Color para celdas vacías
             } else if (grid[r][c] == 1) {
-                painter.setBrush(QColor(220, 38, 38)); // Rojo intenso (Jugador 1)
+                painter.setBrush(jugador1);  // Color para jugador 1
                 painter.drawEllipse(circleRect);
                 // Añadir un punto blanco en el centro del círculo rojo
                 painter.setBrush(Qt::white);
@@ -208,12 +230,13 @@ void GameBoard::paintEvent(QPaintEvent *event) {
                 painter.drawEllipse(centerPoint);
                 continue;
             } else if (grid[r][c] == 2) {
-                painter.setBrush(QColor(6, 182, 212)); // Azul brillante (Jugador 2)
+                painter.setBrush(jugador2);  // Color para jugador 2
             }
             painter.drawEllipse(circleRect);
         }
     }
 }
+
 
 
 void GameBoard::resetGame() {

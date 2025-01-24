@@ -36,6 +36,7 @@ StaticsPlayer::StaticsPlayer(const QString& playerName,
 {
     ui->setupUi(this);
     this->resize(820,900);
+    setFixedSize(this->size()); // Fija el tamaño actual de la ventana
 
     // Crear layouts para las gráficas
     QVBoxLayout* barChartLayout = new QVBoxLayout();

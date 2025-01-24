@@ -13,7 +13,6 @@
 Menu_principal::Menu_principal(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Menu_principal)
-    , highContrastEnabled(false) // Inicializamos como false
 
 {
     ui->setupUi(this);
@@ -27,7 +26,7 @@ Menu_principal::Menu_principal(QWidget *parent)
     }
     // Ya se aplica el estilo de alto contraste desde el archivo QSS
     //QMessageBox::information(this, "Modo claro", "El modo claro se ha activado.");
-    highContrastEnabled = false;
+    //highContrastEnabled = false;
     // Inicializar el modelo
     rankingModel = new QStandardItemModel(this);
 
@@ -165,8 +164,15 @@ void Menu_principal::on_btnMultiPlayer_clicked()
 */
 
 }
+bool Menu_principal::highContrastEnabled = false;
 
+void Menu_principal::setHighContrastEnabled(bool enabled) {
+    highContrastEnabled = enabled;
+}
+bool Menu_principal::isHighContrastEnabled()  {
 
+    return highContrastEnabled;
+}
 void Menu_principal::on_btnHighContrast_clicked()
 {
 
@@ -182,7 +188,7 @@ void Menu_principal::on_btnHighContrast_clicked()
         }
         // Ya se aplica el estilo de alto contraste desde el archivo QSS
         //QMessageBox::information(this, "Modo claro", "El modo claro se ha activado.");
-        highContrastEnabled = false;
+        setHighContrastEnabled(false);
     } else {
         // Cambiar al modo normal (opcional, si tienes otro archivo .qss para modo normal)
         QFile normalStyleFile(":/estilos/estilos.qss");
@@ -193,7 +199,7 @@ void Menu_principal::on_btnHighContrast_clicked()
         }
 
         //QMessageBox::information(this, "Modo oscuro", "El modo oscuro se ha activado.");
-        highContrastEnabled = true;
+        setHighContrastEnabled(true);
 
     }
 }

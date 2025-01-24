@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Inicio sesión</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -193,9 +193,7 @@
         <item>
          <widget class="QPushButton" name="registerLabel">
           <property name="styleSheet">
-           <string notr="true">font: 9pt &quot;Segoe UI&quot;;
-text-decoration: underline;
-color: rgb(0, 255, 255);</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Registrarte</string>
@@ -267,7 +265,7 @@ color: rgb(0, 255, 255);</string>
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Recordar</string>
+             <string>Olvidaste tu contraseña</string>
             </property>
            </widget>
           </item>
@@ -280,12 +278,10 @@ color: rgb(0, 255, 255);</string>
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 9pt &quot;Segoe UI&quot;;
-text-decoration: underline;
-color: rgb(0, 255, 255);</string>
+             <string notr="true"/>
             </property>
             <property name="text">
-             <string>Contraseña</string>
+             <string>Click aqui</string>
             </property>
             <property name="flat">
              <bool>true</bool>
@@ -307,17 +303,6 @@ color: rgb(0, 255, 255);</string>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>392</width>
-     <height>17</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -115,12 +115,13 @@ QLabel {
 #remember_password {
     font: 9pt "Segoe UI";
     text-decoration: underline;
-    color: #1A355B;
+    color: #2A4F7A; /* Azul oscuro más claro */
 }
 
 #registerLabel {
     font: 9pt "Segoe UI";
     text-decoration: underline;
-    color: #1A355B;
+    color: #2A4F7A; /* Azul oscuro más claro */
 }
+
 

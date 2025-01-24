@@ -21,12 +21,17 @@ public:
     void on_btnHighContrast_clicked();
     void loadRanking();
     void showRounds();
-    bool highContrastEnabled; // Variable para rastrear el estado del modo alto contraste
+    static bool isHighContrastEnabled(); // Declarar como estático
+    static void setHighContrastEnabled(bool enabled); // Método estático para modificar el estado
+
 
 private:
+    static bool highContrastEnabled;    // Declarar la variable como estática
+
     Ui::Menu_principal *ui;
     QTableView* rankingTableView;        // Tabla para mostrar el ranking
     QStandardItemModel* rankingModel;   // Modelo para manejar los datos del ranking
+
 };
 
 #endif // MENU_PRINCIPAL_H

@@ -182,5 +182,15 @@ QScrollBar::add-line, QScrollBar::sub-line {
 #reset:pressed {
     background-color: #256646; /* Verde intenso al presionar */
 }
+#remember_password {
+    font: 9pt "Segoe UI";
+    text-decoration: underline;
+    color: rgb(0, 255, 255);
+}
 
+#registerLabel {
+    font: 9pt "Segoe UI";
+    text-decoration: underline;
+    color: rgb(0, 255, 255);
+}
 
